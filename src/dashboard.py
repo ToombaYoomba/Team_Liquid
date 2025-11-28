@@ -1,265 +1,256 @@
 import streamlit as st
+import pandas as pd
 import json
-import os
 
 def load_json_data(*args):
-    with open(r"c:\Users\Екатерина\хакатон\ux_report.json", 'r', encoding='utf-8') as file:
+    # Замените путь на актуальный путь к вашему файлу
+    with open("ux_report_llm.json", 'r', encoding='utf-8') as file:
         data = json.load(file)
         return data
 
+# Загрузка данных
+json_data = load_json_data('ux_report_llm.json')
 
-json_data = load_json_data('ux_report.json')
+# Настройка страницы
+st.set_page_config(page_title="Анализ UX по страницам", layout="wide")
 
+# Стили
 st.markdown("""
 <style>
     .main {
         background-color: #DCDCDC;
     }
-    .stApp {
-        background: linear-gradient(135deg, #f7f5fa 0%, #f7f5fa 100%);
+    .critical-alert {
+        background-color: #FFDBDF;
+        border: 1px solid #FFDBDF;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        color: #252525;
+    }
+    .problem-alert {
+        background-color: #FBD89F;
+        border: 1px solid #FBD89F;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        color: #252525;
+    }
+    .ok-alert {
+        background-color: #DCDCDC;
+        border: 1px solid #DCDCDC;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        color: #252525;
     }
 </style>
 """, unsafe_allow_html=True)
 
-
-st.set_page_config(page_title="Анализ UX проблем", layout="wide")
-st.title('Анализ разницы между версиями')
+st.title('Анализ UX метрик по страницам')
 st.markdown('---')
 
+# Функция для группировки данных по страницам
+def group_data_by_page(data):
+    pages = {}
+    for item in data['analysis']:
+        page_name = item['page']
+        if page_name not in pages:
+            pages[page_name] = []
+        pages[page_name].append(item)
+    return pages
 
-def calculate_overall_metrics(data):
-    detected_problems = data['detected_problems']
+# Функция для расчета общей статистики по страницам
+def calculate_page_metrics(pages_data):
+    total_pages = len(pages_data)
+    total_metrics = sum(len(metrics) for metrics in pages_data.values())
     
-    total_problems = len(detected_problems)
-    total_pages_affected = 0
     critical_issues = 0
     improvements = 0
+    significant_changes = 0
     
-    for problem, pages in detected_problems.items():
-        total_pages_affected += len(pages)
-        for page, metrics in pages.items():
-            metric_name = list(metrics.keys())[0]
-            change_coef = metrics[metric_name]['change_coef']
-            
-            if change_coef > 2:  
-                critical_issues += 1
-            elif change_coef < 0.8: 
-                improvements += 1
+    for page_metrics in pages_data.values():
+        for metric in page_metrics:
+            if metric['significant']:
+                significant_changes += 1
+                if metric['relative_change'] > 1.5:
+                    critical_issues += 1
+                elif metric['relative_change'] < 0.9:
+                    improvements += 1
     
     return {
-        'total_problems': total_problems,
-        'total_pages_affected': total_pages_affected,
+        'total_pages': total_pages,
+        'total_metrics': total_metrics,
+        'significant_changes': significant_changes,
         'critical_issues': critical_issues,
-        'improvements': improvements,
-        'file_A': data['file_A'],
-        'file_B': data['file_B']
+        'improvements': improvements
     }
 
+# Группируем данные по страницам
+pages_data = group_data_by_page(json_data)
+overall_metrics = calculate_page_metrics(pages_data)
 
-metrics = calculate_overall_metrics(json_data)
-detected_problems = json_data['detected_problems']
-
-
-st.subheader('Общая статистика проблем')
+# Общая статистика
+st.subheader('Общая статистика по страницам')
 
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric("Обнаружено проблем", metrics['total_problems'])
+    st.metric("Анализируемые страницы", overall_metrics['total_pages'])
 
 with col2:
-    st.metric("Проанализировано изменений", metrics['total_pages_affected'])
+    st.metric("Всего метрик", overall_metrics['total_metrics'])
 
 with col3:
-    st.metric("Улучшения", metrics['improvements'])
+    st.metric("Значимых изменений", overall_metrics['significant_changes'])
+
+with col4:
+    st.metric("Критических проблем", overall_metrics['critical_issues'])
 
 st.markdown('---')
-st.subheader('Детальный анализ проблем')
 
-k = 0
-for problem_name, pages_data in detected_problems.items():
-    k += 1
-    st.markdown(f"### {k}. {problem_name}")
+# Детальный анализ по страницам
+st.subheader('Детальный анализ по страницам')
+st.markdown('---')
+for page_name, metrics_list in pages_data.items():
+    st.markdown(f"### {page_name.capitalize()}")
     
-    problem_pages = len(pages_data)
-    avg_change = sum(data[list(data.keys())[0]]['change_coef'] for data in pages_data.values()) / problem_pages
-    max_change = max(data[list(data.keys())[0]]['change_coef'] for data in pages_data.values())
+    # Статистика по странице
+    page_critical = sum(1 for m in metrics_list if m['significant'] and m['relative_change'] > 1.5)
+    page_improvements = sum(1 for m in metrics_list if m['significant'] and m['relative_change'] < 0.9)
     
-    col7, col8, col9, col10 = st.columns(4)
+    col_page1, col_page2, col_page3 = st.columns(3)
     
-    with col7:
-        st.metric("Проанализировано изменений", problem_pages)
+    with col_page1:
+        st.metric("Метрик на странице", len(metrics_list))
     
-    with col8:
-        st.metric("Среднее изменение", f"{avg_change:.2f}x")
+    with col_page2:
+        st.metric("Критических изменений", page_critical)
     
-    with col9:
-        st.metric("Макс. изменение", f"{max_change:.2f}x")
     
-    with col10:
-        if max_change > 2:
-            status = "Критическая"
-        elif max_change > 1.5:
-            status = "Серьёзная"
-        else:
-            status = "Умеренная"
-        st.metric("Статус проблемы", status)
-    
-    st.markdown("**Детали по страницам:**")
-    
-    for page_name, metrics_data in pages_data.items():
-        metric_type = list(metrics_data.keys())[0]
-        metric_values = metrics_data[metric_type]
+
+    for metric_data in metrics_list:
+        metric_name = metric_data['metric']
+        change_percent = abs(100 - ((metric_data['version_b'] * 100) / metric_data['version_a']))
         
-        col11, col12, col13, col14 = st.columns(4)
+ 
+        is_problem = change_percent > 100 and metric_data['significant']
+        is_critical = change_percent >= 50 and metric_data['significant']
+        is_improvement = change_percent < 50 and metric_data['significant']
         
-        with col11:
+        
+        st.markdown(f"#### {metric_name.replace('_', ' ').title()}")
+        
+        
+        col_compare1, col_compare2, col_compare3 = st.columns(3)
+        
+        with col_compare1:
             st.metric(
-                f"{page_name} - Версия A", 
-                f"{metric_values['value_in_A']:.2f}",
-                help=f"Метрика: {metric_type}"
+                "Версия A", 
+                f"{metric_data['version_a']:.2f}",
+                help="Исходное значение в версии A"
             )
         
-        with col12:
+        with col_compare2:
             st.metric(
-                f"{page_name} - Версия B", 
-                f"{metric_values['value_in_B']:.2f}",
-                help=f"Метрика: {metric_type}"
+                "Версия B", 
+                f"{metric_data['version_b']:.2f}",
+                help="Новое значение в версии B"
             )
         
-        with col13:
-            change_percent = (metric_values['change_coef'] - 1) * 100
+        with col_compare3:
             delta_color = "normal" if change_percent <= 0 else "inverse"
             st.metric(
-                f"{page_name} - Изменение", 
+                "Изменение", 
                 f"{change_percent:+.1f}%",
-                delta=f"{change_percent:+.1f}%",
-                delta_color=delta_color
+                delta=f"{change_percent:+.1f}%"
             )
         
-        with col14:
-            if metric_values['change_coef'] > 1:
-                trend = "Ухудшение"
-            else:
-                trend = "Улучшение"
-            st.metric("Тренд", trend)
-    
-    if len(pages_data) > 1:
-        col15, col16 = st.columns(2)
-        
-        with col15:
-            st.write(f"**Значения в версии A**")
-            values_a = {page: data[list(data.keys())[0]]['value_in_A'] for page, data in pages_data.items()}
-            st.bar_chart(values_a)
-        
-        with col16:
-            st.write(f"**Значения в версии B**")
-            values_b = {page: data[list(data.keys())[0]]['value_in_B'] for page, data in pages_data.items()}
-            st.bar_chart(values_b)
-    
-    st.markdown("---")
 
-st.subheader('Сводная таблица проблем')
+        if is_critical:
+            st.markdown(f"""
+            <div class="critical-alert">
+                <strong>КРИТИЧЕСКОЕ ИЗМЕНЕНИЕ:</strong> Показатель изменился на {change_percent:+.1f}%
+            </div>
+            """, unsafe_allow_html=True)
+        elif is_problem:
+            st.markdown(f"""
+            <div class="problem-alert">
+                <strong>СЕРЬЁЗНОЕ ИЗМЕНЕНИЕ:</strong> Показатель изменился на {change_percent:+.1f}%
+            </div>
+            """, unsafe_allow_html=True)
+        elif is_improvement:
+            st.markdown(f"""
+            <div class="ok-alert">
+                <strong>НЕБОЛЬШОЕ ИЗМЕНЕНИЕ:</strong> Показатель изменился на {change_percent:+.1f}%
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("**Анализ и рекомендации:**")
+        st.info(metric_data['insight'])
+        
+        st.markdown("---")
+    
+    # Визуализация метрик для страницы
+    if len(metrics_list) > 1:
+        st.markdown("**Сравнение всех метрик страницы:**")
+        
+        # Подготовка данных для графиков
+        metrics_names = [m['metric'].replace('_', ' ').title() for m in metrics_list]
+        values_a = [m['version_a'] for m in metrics_list]
+        values_b = [m['version_b'] for m in metrics_list]
+        
+        # Создаем DataFrame для графиков
+        chart_data = pd.DataFrame({
+            'Метрики': metrics_names,
+            'Версия A': values_a,
+            'Версия B': values_b
+        }).set_index('Метрики')
+        
+        col_chart1, col_chart2 = st.columns(2)
+        
+        with col_chart1:
+            st.write(f"**Метрики {page_name} - Версия A**")
+            st.bar_chart(chart_data['Версия A'])
+        
+        with col_chart2:
+            st.write(f"**Метрики {page_name} - Версия B**")
+            st.bar_chart(chart_data['Версия B'])
+        
+        st.markdown("---")
+
+st.subheader('Сводная таблица по страницам')
 
 table_data = []
-for problem_name, pages_data in detected_problems.items():
-    for page_name, metrics_data in pages_data.items():
-        metric_type = list(metrics_data.keys())[0]
-        metric_values = metrics_data[metric_type]
+for page_name, metrics_list in pages_data.items():
+    for metric_data in metrics_list:
+        change_percent = abs(100 - ((metric_data['version_b'] * 100) / metric_data['version_a']))
         
-        change_percent = (metric_values['change_coef'] - 1) * 100
+        is_problem = change_percent > 100 and metric_data['significant']
+        is_critical = change_percent >= 50 and metric_data['significant']
+        is_improvement = change_percent < 50 and metric_data['significant']
+        
+        # Определение статуса
+        if change_percent > 100:
+            status = "Критично"
+        elif change_percent >= 50:
+            status = "Серьезно"
+        else:
+            status = "Некритично"
         
         table_data.append({
-            "Проблема": problem_name,
             "Страница": page_name,
-            "Метрика": metric_type,
-            "Версия A": f"{metric_values['value_in_A']:.2f}",
-            "Версия B": f"{metric_values['value_in_B']:.2f}",
-            "Изменение": f"{change_percent:+.1f}%",
-            "Статус": "Критично" if metric_values['change_coef'] > 2 else 
-                     "Серьёзно" if metric_values['change_coef'] > 1.5 else 
-                     "Умеренно"
+            "Метрика": metric_data['metric'],
+            "Версия A": f"{metric_data['version_a']:.2f}",
+            "Версия B": f"{metric_data['version_b']:.2f}",
+            "Изменение %": f"{change_percent:+.1f}%",
+
+            "Статус": status
         })
 
 st.table(table_data)
 
 st.markdown('---')
-st.subheader('Анализ критических проблем')
 
-
-critical_issues = []
-for problem_name, pages_data in detected_problems.items():
-    for page_name, metrics_data in pages_data.items():
-        metric_values = metrics_data[list(metrics_data.keys())[0]]
-        if metric_values['change_coef'] > 2:  
-            critical_issues.append({
-                'problem': problem_name,
-                'page': page_name,
-                'change_coef': metric_values['change_coef'],
-                'metric': list(metrics_data.keys())[0]
-            })
-
-
-critical_issues.sort(key=lambda x: x['change_coef'], reverse=True)
-
-if critical_issues:
-    st.warning(f"**Обнаружено {len(critical_issues)} критических проблем:**")
-    
-    for i, issue in enumerate(critical_issues[:5], 1):  
-        change_percent = (issue['change_coef'] - 1) * 100
-        st.error(f"{i}. **{issue['problem']}** на странице **{issue['page']}** - ухудшение на {change_percent:+.1f}%")
-else:
-    st.success("Критических проблем не обнаружено!")
-
-
-st.markdown('---')
-st.subheader('Рекомендации по улучшению')
-
-col17, col18, col19 = st.columns(3)
-
-with col17:
-    st.info("**Приоритетные зоны:**")
-    if critical_issues:
-        for issue in critical_issues[:3]:
-            st.write(f"• {issue['page']} - {issue['problem']}")
-    else:
-        st.write(" Критических зон не обнаружено")
-
-with col18:
-    st.info("**Метрики для мониторинга:**")
-    unique_metrics = set()
-    for problem_data in detected_problems.values():
-        for page_data in problem_data.values():
-            unique_metrics.add(list(page_data.keys())[0])
-    for metric in list(unique_metrics)[:3]:
-        st.write(f"• {metric}")
-
-with col19:
-    st.info("**Следующие шаги:**")
-    st.write("• Провести A/B тестирование")
-    st.write("• Улучшить навигацию")
-    st.write("• Оптимизировать формы ввода")
-
-with st.expander("ℹОписание данных и метрик"):
-    st.write("""
-    **Структура данных:**
-    - **file_A, file_B**: Файлы данных для сравнения версий
-    - **detected_problems**: Обнаруженные проблемы UX
-    
-    **Типы метрик:**
-    - **bounce_rate**: Показатель отскока
-    - **time_on_page_avg**: Среднее время на странице
-    - **pages_per_session**: Страниц за сессию
-    - **conversions**: Конверсии
-    - **form_abandoned**: Отказы от форм
-    - **field_errors**: Ошибки в полях
-    
-    **Интерпретация коэффициента изменения:**
-    - > 1.5x: Критическое ухудшение
-    - 1.0-1.5x: Умеренное ухудшение  
-    - < 1.0x: Улучшение показателя
-    """)
-
-
-with st.expander("Просмотр исходных JSON данных"):
+with st.expander("Просмотр исходных данных"):
     st.json(json_data)
