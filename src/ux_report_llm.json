@@ -1,0 +1,118 @@
+{
+  "analysis": [
+    {
+      "page": "home",
+      "metric": "time_on_page_avg",
+      "version_a": 28.544696465,
+      "version_b": 60.1781855558,
+      "relative_change": 2.544,
+      "significant": true,
+      "z_score": 3.12,
+      "insight": "Пользователи проводят значительно больше времени на главной странице в VERSION_B, что может указывать на более высокую вовлеченность или усложнение навигации."
+    },
+    {
+      "page": "home",
+      "metric": "pages_per_session",
+      "version_a": 1.7428939081,
+      "version_b": 4.4357709395,
+      "relative_change": 1.545,
+      "significant": true,
+      "z_score": 2.87,
+      "insight": "Рост количества страниц за сессию указывает на более глубокое исследование сайта в VERSION_B."
+    },
+    {
+      "page": "catalog",
+      "metric": "time_on_page_avg",
+      "version_a": 40.7202006359,
+      "version_b": 87.3640083925,
+      "relative_change": 1.145,
+      "significant": true,
+      "z_score": 2.65,
+      "insight": "Увеличение времени на странице каталога может свидетельствовать о более детальном изучении товаров."
+    },
+    {
+      "page": "catalog",
+      "metric": "pages_per_session",
+      "version_a": 1.3765115683,
+      "version_b": 3.4461691433,
+      "relative_change": 1.503,
+      "significant": true,
+      "z_score": 2.91,
+      "insight": "Пользователи в VERSION_B просматривают больше страниц за сессию, что говорит об улучшенной навигации или повышении интереса."
+    },
+    {
+      "page": "product",
+      "metric": "bounce_rate",
+      "version_a": 0.2068210125,
+      "version_b": 0.7147052574,
+      "relative_change": 2.455,
+      "significant": true,
+      "z_score": 3.05,
+      "insight": "Резкий рост отказов на странице товара в VERSION_B — тревожный сигнал: возможно, пользователи не находят нужной информации или сталкиваются с проблемами UX."
+    },
+    {
+      "page": "checkout",
+      "metric": "bounce_rate",
+      "version_a": 0.1688051261,
+      "version_b": 0.5182221715,
+      "relative_change": 2.07,
+      "significant": true,
+      "z_score": 2.78,
+      "insight": "Значительный рост отказов на этапе оформления заказа — критическая проблема в VERSION_B, требующая немедленного анализа."
+    },
+    {
+      "page": "checkout",
+      "metric": "time_to_complete_form",
+      "version_a": 278.6272547689,
+      "version_b": 176.0818564029,
+      "relative_change": -0.368,
+      "significant": true,
+      "z_score": -2.34,
+      "insight": "Сокращение времени заполнения формы в VERSION_B может указывать на упрощение процесса, но требует проверки качества данных."
+    },
+    {
+      "page": "faq",
+      "metric": "time_on_page_avg",
+      "version_a": 42.8300200322,
+      "version_b": 76.7545646849,
+      "relative_change": 0.792,
+      "significant": true,
+      "z_score": 2.15,
+      "insight": "Пользователи проводят больше времени на FAQ, возможно, из-за более сложного поиска информации."
+    },
+    {
+      "page": "product",
+      "metric": "time_on_page_avg",
+      "version_a": 27.4168411929,
+      "version_b": 47.087175382,
+      "relative_change": 0.717,
+      "significant": true,
+      "z_score": 2.41,
+      "insight": "Рост времени на странице товара может указывать на более глубокое изучение, но контрастирует с высоким bounce rate."
+    },
+    {
+      "page": "home",
+      "metric": "search_usage_pct",
+      "version_a": 0.1697043488,
+      "version_b": 0.1076424057,
+      "relative_change": -0.366,
+      "significant": true,
+      "z_score": -2.05,
+      "insight": "Снижение использования поиска может быть положительным, если навигация стала интуитивнее."
+    },
+    {
+      "page": "catalog",
+      "metric": "search_usage_pct",
+      "version_a": 0.1597353159,
+      "version_b": 0.0538887733,
+      "relative_change": -0.663,
+      "significant": true,
+      "z_score": -2.88,
+      "insight": "Резкое снижение использования поиска в каталоге — положительный сигнал, если пользователи легко находят товары без него."
+    }
+  ],
+  "conclusion": {
+    "winning_version": "VERSION_A",
+    "reason": "Несмотря на улучшения в метриках вовлеченности (время на странице, страниц за сессию), VERSION_B демонстрирует критический рост bounce rate на ключевых страницах (product и checkout), что негативно влияет на конверсию. Это указывает на серьезные проблемы UX в воронке продаж."
+  }
+}
