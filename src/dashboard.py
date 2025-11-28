@@ -10,9 +10,22 @@ def load_json_data(*args):
 
 json_data = load_json_data('ux_report.json')
 
+st.markdown("""
+<style>
+    .main {
+        background-color: #DCDCDC;
+    }
+    .stApp {
+        background: linear-gradient(135deg, #f7f5fa 0%, #f7f5fa 100%);
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
 st.set_page_config(page_title="Анализ UX проблем", layout="wide")
 st.title('Анализ разницы между версиями')
 st.markdown('---')
+
 
 def calculate_overall_metrics(data):
     detected_problems = data['detected_problems']
@@ -59,17 +72,6 @@ with col2:
 
 with col3:
     st.metric("Улучшения", metrics['improvements'])
-
-st.markdown('---')
-st.subheader('Сравнение версий')
-
-col5, col6 = st.columns(2)
-
-with col5:
-    st.info(f"**Версия A:** {metrics['file_A']}")
-    
-with col6:
-    st.info(f"**Версия B:** {metrics['file_B']}")
 
 st.markdown('---')
 st.subheader('Детальный анализ проблем')
