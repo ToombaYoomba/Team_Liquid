@@ -23,18 +23,27 @@ client = AsyncOpenAI(
     project=folder_id
 )
 
-REL_CHANGE_THRESHOLD = 40  # ОБЯЗАТЕЛЬНО БЕЗ ДЕСЯТИЧНОЙ ТОЧКИ ИНАЧЕ МЯСО
-Z_SCORE_THRESHOLD = 2.0
+REL_CHANGE_THRESHOLD = 40
 
 PROMPT_TEMPLATE = """
 Ты получаешь два набора данных (VERSION_A и VERSION_B) о поведении пользователей на сайте. 
 
-ТВОЯ ЗАДАЧА: Найти ВСЕ метрики, которые изменились более чем на 40% между версиями.
+ТВОЯ ЗАДАЧА: Найти ВСЕ метрики, которые изменились более чем на 40% между версиями, включая ВРЕМЕННЫЕ МЕТРИКИ.
 
-ОСОБОЕ ВНИМАНИЕ УДЕЛИ:
-- Изменения в популярности конкретных URL и категорий страниц
-- Изменения в глубине сессий и bounce rate
-- Изменения в распределении по типам контента
+ОБЯЗАТЕЛЬНЫЕ ШАГИ АНАЛИЗА:
+
+1. Сначала проанализируй ОСНОВНЫЕ МЕТРИКИ СТРАНИЦ:
+   - Просмотры страницы (views)
+   - Доля трафика (percentage)
+
+2. ЗАТЕМ ПРОАНАЛИЗИРУЙ ВРЕМЕННЫЕ РАСПРЕДЕЛЕНИЯ для каждой страницы:
+   - hourly_distribution: сравни КАЖДЫЙ час отдельно
+   - daily_distribution: сравни КАЖДЫЙ день отдельно
+   - Если изменение по конкретному часу/дню >40% - включи в отчет
+
+3. ПРОАНАЛИЗИРУЙ NUMERIC_STATS если доступны:
+   - time_on_page, page_time, session_duration (временные метрики)
+   - scroll_depth, clicks (метрики вовлеченности)
 
 ДАННЫЕ VERSION_A:
 {version_a}
@@ -42,18 +51,16 @@ PROMPT_TEMPLATE = """
 ДАННЫЕ VERSION_B:
 {version_b}
 
-АНАЛИЗИРУЙ СЛЕДУЮЩЕЕ:
-- Количество просмотров по КОНКРЕТНЫМ URL (из top_urls)
-- Распределение по КАТЕГОРИЯМ URL (url_category_analysis)  
-- Статистики сессий (глубина, bounce rate)
-- Общие метрики (total_hits, total_visits)
+КОНКРЕТНЫЕ ПРИМЕРЫ КАК АНАЛИЗИРОВАТЬ ВРЕМЕННЫЕ ДАННЫЕ:
 
-ДЛЯ КАЖДОЙ МЕТРИКИ РАССЧИТАЙ:
-1. Абсолютное изменение (версия_B - версия_A)
-2. Относительное изменение в % ((версия_B - версия_A) / версия_A * 100)
+Для страницы "https://priem.mai.ru/rating/":
+- Сравни hourly_distribution[10] в A и B (активность в 10 часов)
+- Сравни daily_distribution["Monday"] в A и B (активность в понедельник)
+- Если hourly_distribution[14] в A=100, в B=180 -> изменение 80% -> ВКЛЮЧИТЬ
 
-ЕСЛИ НАЙДЕШЬ ИЗМЕНЕНИЯ >40% - включи их в отчет.
-ЕСЛИ НЕТ - верни пустой список.
+Для страницы "homepage":
+- Сравни просмотры по часам: hourly_distribution[9], hourly_distribution[10] и т.д.
+- Сравни активность по дням: daily_distribution["Tuesday"], daily_distribution["Wednesday"]
 
 Формат ОБЯЗАТЕЛЕН:
 {{
@@ -62,23 +69,51 @@ PROMPT_TEMPLATE = """
     "всего_значимых_изменений": число,
     "статус": "есть_значимые_изменения/нет_значимых_изменений"
   }},
-  "значимые_изменения": [
+  "значимые_изменения_по_страницам": [
     {{
-      "метрика": "строка_с_понятным_названием", 
-      "версия_A": число,
-      "версия_B": число, 
-      "абсолютное_изменение": число,
-      "относительное_изменение_%": число,
-      "значимость": "высокая/средняя/низкая",
-      "интерпретация": "краткое_объяснение_что_это_может_означать"
+      "страница": "реальный_URL_или_категория",
+      "проблемные_метрики": [
+        {{
+          "метрика": "название_метрики", 
+          "тип_метрики": "просмотры/время/активность/клики/доля",
+          "версия_A": число,
+          "версия_B": число, 
+          "абсолютное_изменение": число,
+          "относительное_изменение_%": число,
+          "значимость": "высокая/средняя/низкая",
+          "интерпретация": "объяснение"
+        }}
+      ]
     }}
   ]
 }}
+
+ПРИМЕРЫ ВРЕМЕННЫХ МЕТРИК ДЛЯ ВКЛЮЧЕНИЯ:
+
+"активность_в_10_часов_утра" (из hourly_distribution)
+"активность_в_понедельник" (из daily_distribution)
+"пиковая_активность_часа_14"
+"среднее_время_на_странице" (из numeric_stats)
+"время_сессии_медиана"
+
+НЕ ИГНОРИРУЙ эти данные если они есть:
+- hourly_distribution: распределение по часам (0-23)
+- daily_distribution: распределение по дням недели
+- numeric_stats: статистики по числовым колонкам
+- session_metrics: метрики сессий
+
+ВАЖНО: Если в данных есть временные распределения - ОБЯЗАТЕЛЬНО их анализируй и включай значимые изменения!
 """
 
 agent = Agent(
     name="UX_MCP_Analyzer",
-    instructions="Ты — аналитик UX, выполняй анализ строго по инструкции и возвращай только JSON.",
+    instructions="""Ты — аналитик UX. Строго следуй правилам:
+1. Анализируй только реальные страницы (URL и категории)
+2. Включай только метрики с изменением >40%
+3. Анализируй ВСЕ доступные данные включая временные распределения
+4. Для hourly_distribution сравнивай каждый час отдельно
+5. Для daily_distribution сравнивай каждый день отдельно
+6. Возвращай только JSON в указанном формате""",
     model=model
 )
 
@@ -91,10 +126,7 @@ async def run_analysis(
     visits_file_b: str
 ):
     """
-    Основная функция анализа с двумя файлами на версию:
-    - Загружает комбинированные данные hits + visits для обеих версий
-    - Формирует промпт для LLM
-    - Запускает агента
+    Основная функция анализа с двумя файлами на версию
     """
     print(f"Загрузка данных...")
     
@@ -109,20 +141,55 @@ async def run_analysis(
     data_a = json.loads(json_a)
     data_b = json.loads(json_b)
     
-    print("Проверка URL анализа:")
-    if 'url_category_analysis' in data_a['hits_analysis']:
-        print("Категории URL Version A:", data_a['hits_analysis']['url_category_analysis'])
-        print("Категории URL Version B:", data_b['hits_analysis']['url_category_analysis'])
+    print("Проверка доступных данных:")
     
+    # Проверяем какие данные действительно доступны
+    if 'url_category_analysis' in data_a['hits_analysis']:
+        print("Категории URL доступны")
     if 'top_urls' in data_a['hits_analysis']:
-        print("Топ URL Version A (первые 3):", data_a['hits_analysis']['top_urls'][:3])
-        print("Топ URL Version B (первые 3):", data_b['hits_analysis']['top_urls'][:3])
+        print("Топ URL доступны") 
+    if 'session_metrics' in data_a['visits_analysis']:
+        print("Метрики сессий доступны")
+    if 'time_range' in data_a['hits_analysis']:
+        print("Временные диапазоны доступны")
+    if 'numeric_stats' in data_a['hits_analysis']:
+        print("Числовые статистики доступны")
+
+    # Детальная проверка временных данных
+    temporal_data_found = False
+    
+    if 'hourly_distribution' in data_a['hits_analysis']:
+        hours_a = data_a['hits_analysis']['hourly_distribution']
+        hours_b = data_b['hits_analysis']['hourly_distribution']
+        print(f"hourly_distribution доступен: {len(hours_a)} часов в A, {len(hours_b)} часов в B")
+        print(f"  Пример часов в A: {dict(list(hours_a.items())[:5])}")  # первые 5 часов
+        temporal_data_found = True
+        
+    if 'daily_distribution' in data_a['hits_analysis']:
+        days_a = data_a['hits_analysis']['daily_distribution']
+        days_b = data_b['hits_analysis']['daily_distribution']
+        print(f"daily_distribution доступен: {len(days_a)} дней в A, {len(days_b)} дней в B")
+        print(f"  Дни в A: {days_a}")
+        temporal_data_found = True
+
+    if 'numeric_stats' in data_a['hits_analysis']:
+        stats_a = data_a['hits_analysis']['numeric_stats']
+        stats_b = data_b['hits_analysis']['numeric_stats']
+        print(f"numeric_stats доступен: {list(stats_a.keys())}")
+        # Проверяем есть ли временные метрики в numeric_stats
+        time_metrics = [k for k in stats_a.keys() if 'time' in k.lower() or 'duration' in k.lower()]
+        if time_metrics:
+            print(f"  Временные метрики в numeric_stats: {time_metrics}")
+            temporal_data_found = True
+
+    if not temporal_data_found:
+        print("Временные данные НЕ обнаружены в анализируемых данных")
+    else:
+        print("Временные данные обнаружены - будут проанализированы")
 
     prompt = PROMPT_TEMPLATE.format(
         version_a=json_a,
-        version_b=json_b,
-        rel_thr=REL_CHANGE_THRESHOLD,
-        z_thr=Z_SCORE_THRESHOLD
+        version_b=json_b
     )
 
     print("Запуск LLM анализа...")
@@ -131,16 +198,14 @@ async def run_analysis(
 
 async def run_analysis_simple(file_a: str, file_b: str):
     """
-    Старая функция для обратной совместимости (один файл на версию)
+    Старая функция для обратной совместимости
     """
     json_a = _load_parquet_summary_direct(file_a)
     json_b = _load_parquet_summary_direct(file_b)
 
     prompt = PROMPT_TEMPLATE.format(
         version_a=json_a,
-        version_b=json_b,
-        rel_thr=REL_CHANGE_THRESHOLD,
-        z_thr=Z_SCORE_THRESHOLD
+        version_b=json_b
     )
 
     result = await Runner.run(agent, input=prompt, run_config=rc)
@@ -161,20 +226,55 @@ if __name__ == "__main__":
         with open("ux_report_llm_significant.json", "w", encoding="utf8") as f:
             json.dump(parsed, f, ensure_ascii=False, indent=2)
         
-        # Анализ результата
-        changes = parsed.get("значимые_изменения", [])
-        if changes:
-            print(f"Найдено {len(changes)} значимых изменений (>40%)")
-            for change in changes[:3]:  # покажем первые 3
-                metric = change.get('метрика', 'N/A')
-                change_pct = change.get('относительное_изменение_%', 0)
-                print(f"   - {metric}: {change_pct:+.1f}%")
+        # Анализ результата с новой структурой
+        changes_by_page = parsed.get("значимые_изменения_по_страницам", [])
+        total_changes = 0
+        temporal_changes = 0
+        
+        if changes_by_page:
+            print("\n" + "="*60)
+            print("РЕЗУЛЬТАТЫ АНАЛИЗА:")
+            print("="*60)
+            
+            for page_change in changes_by_page:
+                page_name = page_change.get('страница', 'N/A')
+                metrics = page_change.get('проблемные_метрики', [])
+                total_changes += len(metrics)
+                
+                # Считаем временные метрики
+                page_temporal = sum(1 for m in metrics if any(word in m.get('тип_метрики', '').lower() 
+                                                            for word in ['время', 'активность', 'duration', 'time']))
+                temporal_changes += page_temporal
+                
+                print(f"\n{page_name}")
+                print("-" * len(page_name))
+                
+                for metric in metrics:
+                    metric_name = metric.get('метрика', 'N/A')
+                    metric_type = metric.get('тип_метрики', 'N/A')
+                    version_a = metric.get('версия_A', 0)
+                    version_b = metric.get('версия_B', 0)
+                    change_pct = metric.get('относительное_изменение_%', 0)
+                    significance = metric.get('значимость', 'N/A')
+                    interpretation = metric.get('интерпретация', 'N/A')
+                    
+            
+            print(f"\nИТОГО: {total_changes} значимых изменений (>40%) на {len(changes_by_page)} страницах")
+            print(f"Временные метрики: {temporal_changes} изменений")
+            
+            # Статистика по типам метрик
+            metric_types = {}
+            for page_change in changes_by_page:
+                for metric in page_change.get('проблемные_метрики', []):
+                    m_type = metric.get('тип_метрики', 'другое')
+                    metric_types[m_type] = metric_types.get(m_type, 0) + 1
+                    
         else:
-            print("   Значимых изменений не обнаружено (>40%)")
+            print("Значимых изменений не обнаружено (>40%)")
             print("   Проверьте отладочные файлы debug_version_*.json")
         
-        print("  Отчет сохранен в ux_report_llm_significant.json")
+        print("\nОтчет сохранен в ux_report_llm_significant.json")
                     
     except json.JSONDecodeError:
-        print("  Ошибка: некорректный ответ от LLM")
+        print("Ошибка: некорректный ответ от LLM")
         print("Ответ:", out)
