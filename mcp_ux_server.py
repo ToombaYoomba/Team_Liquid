@@ -33,8 +33,7 @@ def _read_excel_file(path: str) -> str:
 
     if not p.exists():
         raise FileNotFoundError(f"File not found: {p}")
-    
-    # Читаем все листы Excel файла
+
     excel_data = {}
     xl = pd.ExcelFile(p)
     
@@ -54,29 +53,25 @@ def _analyze_full_metrics_data(df: pd.DataFrame) -> dict:
     Предполагается структура: 2 строки (версии), много столбцов с метриками
     """
     analysis = {}
-    
-    # Проверяем структуру данных
+
     analysis["data_structure"] = {
         "total_rows": len(df),
         "total_columns": len(df.columns),
         "versions_found": df.iloc[:, 0].tolist() if len(df) > 0 else []
     }
-    
-    # Если есть 2 версии
+
     if len(df) == 2:
         v1_data = df.iloc[0]
         v2_data = df.iloc[1]
-        
-        # Собираем все метрики для сравнения
+
         metrics_comparison = {}
         
         for column in df.columns:
-            # Пропускаем нечисловые колонки (например, названия версий)
+
             if pd.api.types.is_numeric_dtype(df[column]):
                 v1_val = v1_data[column]
                 v2_val = v2_data[column]
-                
-                # Рассчитываем процентное изменение
+
                 if v1_val != 0:
                     change_percent = ((v2_val - v1_val) / abs(v1_val)) * 100
                 else:
@@ -90,8 +85,7 @@ def _analyze_full_metrics_data(df: pd.DataFrame) -> dict:
         
         analysis["metrics_comparison"] = metrics_comparison
         analysis["total_metrics"] = len(metrics_comparison)
-        
-        # Метрики с изменением >20%
+
         significant_changes = {
             col: data for col, data in metrics_comparison.items() 
             if abs(data["change_percent"]) > 20
@@ -115,14 +109,12 @@ def _analyze_goals_data(df: pd.DataFrame) -> dict:
         "total_columns": len(df.columns),
         "columns": df.columns.tolist()
     }
-    
-    # Проверяем наличие необходимых колонок
+
     required_columns = ['goal_id', 'avg_steps', 'avg_duration_sec', 'version']
     if not all(col in df.columns for col in required_columns):
         analysis["error"] = f"Missing required columns. Found: {df.columns.tolist()}, Required: {required_columns}"
         return analysis
-    
-    # Разделяем данные по версиям
+
     v1_data = df[df['version'] == 'v1']
     v2_data = df[df['version'] == 'v2']
     
@@ -132,8 +124,7 @@ def _analyze_goals_data(df: pd.DataFrame) -> dict:
         "v1_goal_ids": v1_data['goal_id'].tolist(),
         "v2_goal_ids": v2_data['goal_id'].tolist()
     }
-    
-    # Собираем сравнение по целям
+
     goals_comparison = {}
     
     for goal_id in v1_data['goal_id'].unique():
@@ -145,8 +136,7 @@ def _analyze_goals_data(df: pd.DataFrame) -> dict:
             v2_row = v2_goal.iloc[0]
             
             goal_comparison = {}
-            
-            # Анализируем средние шаги
+
             v1_steps = v1_row['avg_steps']
             v2_steps = v2_row['avg_steps']
             steps_change = ((v2_steps - v1_steps) / v1_steps * 100) if v1_steps != 0 else 100
@@ -156,8 +146,7 @@ def _analyze_goals_data(df: pd.DataFrame) -> dict:
                 "v2_value": float(v2_steps),
                 "change_percent": float(steps_change)
             }
-            
-            # Анализируем среднее время
+
             v1_duration = v1_row['avg_duration_sec']
             v2_duration = v2_row['avg_duration_sec']
             duration_change = ((v2_duration - v1_duration) / v1_duration * 100) if v1_duration != 0 else 100
@@ -172,8 +161,7 @@ def _analyze_goals_data(df: pd.DataFrame) -> dict:
     
     analysis["goals_comparison"] = goals_comparison
     analysis["total_goals"] = len(goals_comparison)
-    
-    # Находим цели с значительными изменениями (>20%)
+
     significant_goals = {}
     for goal_id, metrics in goals_comparison.items():
         significant_metrics = {}
@@ -197,8 +185,7 @@ def _load_full_metrics_analysis(metrics_file: str) -> str:
     df = _read_parquet_df(metrics_file)
     
     analysis = _analyze_full_metrics_data(df)
-    
-    # Добавляем информацию о данных
+
     analysis["data_info"] = {
         "source_file": metrics_file,
         "columns_available": df.columns.tolist(),
@@ -215,8 +202,7 @@ def _load_goals_analysis(goals_file: str) -> str:
     df = _read_parquet_df(goals_file)
     
     analysis = _analyze_goals_data(df)
-    
-    # Добавляем информацию о данных
+
     analysis["data_info"] = {
         "source_file": goals_file,
         "columns_available": df.columns.tolist(),

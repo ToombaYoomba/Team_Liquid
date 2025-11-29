@@ -147,11 +147,8 @@ async def run_metrics_analysis(metrics_file: str):
 
 async def run_goals_analysis(goals_file: str, goals_descriptions_file: str):
     print(f"Loading goals data from {goals_file}...")
-    
-    # Загрузка данных по целям
     goals_json_data = _load_goals_analysis(goals_file)
-    
-    # Загрузка описаний целей из Excel
+
     try:
         goals_descriptions = _read_excel_file(goals_descriptions_file)
     except Exception as e:
@@ -180,7 +177,6 @@ async def run_analysis_simple(file_a: str, file_b: str):
     return result.final_output
 
 if __name__ == "__main__":
-    # Первый анализ: основные метрики
     metrics_file = "data/full_metrics.parquet"
     
     print("UX metrics analysis started")
@@ -194,18 +190,10 @@ if __name__ == "__main__":
         
         analysis_metrics = parsed_metrics.get("analysis", [])
         total_metrics = len(analysis_metrics)
-        
-        if analysis_metrics:
-            print(f"Metrics analysis complete: {total_metrics} significant metrics found")
-        else:
-            print("No significant problems found in metrics (changes <20%)")
-        
-        print("Metrics report saved to ux_metrics_analysis.json")
                     
     except json.JSONDecodeError:
         print("Error: Invalid response from LLM for metrics analysis")
-    
-    # Второй анализ: цели
+
     goals_file = "data/goal_stats_common_v1_v2.parquet"
     goals_descriptions_file = "data/Цели ЯМетрика.xlsx"
     
@@ -220,11 +208,6 @@ if __name__ == "__main__":
         
         analysis_goals = parsed_goals.get("analysis", [])
         total_goals = len(analysis_goals)
-        
-        if analysis_goals:
-            print(f"Goals analysis complete: {total_goals} goals analyzed")
-        else:
-            print("No significant changes found in goals analysis")
         
         print("Goals report saved to ux_goals_analysis.json")
                     
