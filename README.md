@@ -3,7 +3,7 @@
 ## Структура проекта
 raw_data.parquet → etl (извлечение данных, ) →  embeddings → ux-анализ от ИИ → dashboard
 ## Инструкция к запуску дашборда
-1. Скачать репозиторий git clone https://github.com/ToombaYoomba/Team_Liquid
+1. Установить себе наш репозиторий https://github.com/ToombaYoomba/Team_Liquid
 2. Запустить файл dashboard.py из ветки Dashboard
 3. Прописать в консоли pip install streamlit
 4. Прописать в консоли streamlit run dashboard.py
