@@ -1,20 +1,19 @@
 import streamlit as st
 import pandas as pd
 import json
+import os
 
 def load_json_data(*args):
-    # Замените путь на актуальный путь к вашему файлу
-    with open("ux_report_llm.json", 'r', encoding='utf-8') as file:
+    with open(r"c:\Users\Екатерина\хакатон\ux_report_llm.json", 'r', encoding='utf-8') as file:
         data = json.load(file)
         return data
 
-# Загрузка данных
+
 json_data = load_json_data('ux_report_llm.json')
 
-# Настройка страницы
 st.set_page_config(page_title="Анализ UX по страницам", layout="wide")
 
-# Стили
+
 st.markdown("""
 <style>
     .main {
@@ -50,7 +49,6 @@ st.markdown("""
 st.title('Анализ UX метрик по страницам')
 st.markdown('---')
 
-# Функция для группировки данных по страницам
 def group_data_by_page(data):
     pages = {}
     for item in data['analysis']:
@@ -60,7 +58,7 @@ def group_data_by_page(data):
         pages[page_name].append(item)
     return pages
 
-# Функция для расчета общей статистики по страницам
+
 def calculate_page_metrics(pages_data):
     total_pages = len(pages_data)
     total_metrics = sum(len(metrics) for metrics in pages_data.values())
@@ -86,11 +84,9 @@ def calculate_page_metrics(pages_data):
         'improvements': improvements
     }
 
-# Группируем данные по страницам
 pages_data = group_data_by_page(json_data)
 overall_metrics = calculate_page_metrics(pages_data)
 
-# Общая статистика
 st.subheader('Общая статистика по страницам')
 
 col1, col2, col3, col4 = st.columns(4)
@@ -109,13 +105,13 @@ with col4:
 
 st.markdown('---')
 
-# Детальный анализ по страницам
+
 st.subheader('Детальный анализ по страницам')
 st.markdown('---')
 for page_name, metrics_list in pages_data.items():
     st.markdown(f"### {page_name.capitalize()}")
     
-    # Статистика по странице
+    
     page_critical = sum(1 for m in metrics_list if m['significant'] and m['relative_change'] > 1.5)
     page_improvements = sum(1 for m in metrics_list if m['significant'] and m['relative_change'] < 0.9)
     
@@ -126,6 +122,7 @@ for page_name, metrics_list in pages_data.items():
     
     with col_page2:
         st.metric("Критических изменений", page_critical)
+    st.markdown('---')
     
     
 
@@ -191,16 +188,16 @@ for page_name, metrics_list in pages_data.items():
         
         st.markdown("---")
     
-    # Визуализация метрик для страницы
+
     if len(metrics_list) > 1:
         st.markdown("**Сравнение всех метрик страницы:**")
         
-        # Подготовка данных для графиков
+
         metrics_names = [m['metric'].replace('_', ' ').title() for m in metrics_list]
         values_a = [m['version_a'] for m in metrics_list]
         values_b = [m['version_b'] for m in metrics_list]
         
-        # Создаем DataFrame для графиков
+
         chart_data = pd.DataFrame({
             'Метрики': metrics_names,
             'Версия A': values_a,
@@ -230,7 +227,7 @@ for page_name, metrics_list in pages_data.items():
         is_critical = change_percent >= 50 and metric_data['significant']
         is_improvement = change_percent < 50 and metric_data['significant']
         
-        # Определение статуса
+
         if change_percent > 100:
             status = "Критично"
         elif change_percent >= 50:
