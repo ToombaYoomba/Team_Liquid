@@ -9,7 +9,7 @@ def load_json_data(*args):
 
 json_data = load_json_data('ux_metrics_analysis.json')
 
-st.set_page_config(page_title="Анализ UX по страницам", layout="wide")
+st.set_page_config(page_title="Анализ метрик", layout="wide")
 
 st.markdown("""
 <style>
@@ -43,7 +43,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title('Анализ UX метрик по страницам')
+st.title('Анализ UX метрик')
 st.markdown('---')
 
 def calculate_overall_metrics(data):
@@ -208,3 +208,4 @@ st.markdown('---')
 
 with st.expander("Просмотр исходных данных"):
     st.json(json_data)
+
