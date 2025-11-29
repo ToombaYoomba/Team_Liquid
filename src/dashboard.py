@@ -89,8 +89,8 @@ for i, metric_data in enumerate(json_data['analysis']):
     metric_name = metric_data['metric']
     change_percent = abs(100 - ((metric_data['version_b'] * 100) / metric_data['version_a']))
     
-    is_problem = change_percent > 70 
-    is_critical = change_percent >= 30 
+    is_critical = change_percent > 70 
+    is_problem = change_percent >= 30 
     is_improvement = change_percent < 30 
     
     st.markdown(f"#### {metric_name.replace('_', ' ').title()}")
@@ -208,4 +208,5 @@ st.markdown('---')
 
 with st.expander("Просмотр исходных данных"):
     st.json(json_data)
+
 
