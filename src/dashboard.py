@@ -62,26 +62,22 @@ def group_data_by_page(data):
 def calculate_page_metrics(pages_data):
     total_pages = len(pages_data)
     total_metrics = sum(len(metrics) for metrics in pages_data.values())
-    
     critical_issues = 0
-    improvements = 0
     significant_changes = 0
-    
-    for page_metrics in pages_data.values():
-        for metric in page_metrics:
-            if metric['significant']:
+    for page_name, metrics_list in pages_data.items():
+        for metric_data in metrics_list:
+            change_percent = abs(100 - ((metric_data['version_b'] * 100) / metric_data['version_a']))
+            if change_percent > 100:
+                critical_issues += 1
+            elif change_percent >= 50:
                 significant_changes += 1
-                if metric['relative_change'] > 1.5:
-                    critical_issues += 1
-                elif metric['relative_change'] < 0.9:
-                    improvements += 1
+
     
     return {
         'total_pages': total_pages,
         'total_metrics': total_metrics,
         'significant_changes': significant_changes,
         'critical_issues': critical_issues,
-        'improvements': improvements
     }
 
 pages_data = group_data_by_page(json_data)
@@ -101,7 +97,7 @@ with col3:
     st.metric("Значимых изменений", overall_metrics['significant_changes'])
 
 with col4:
-    st.metric("Критических проблем", overall_metrics['critical_issues'])
+    st.metric("Критических изменений", overall_metrics['critical_issues'])
 
 st.markdown('---')
 
@@ -157,10 +153,14 @@ for page_name, metrics_list in pages_data.items():
         
         with col_compare3:
             delta_color = "normal" if change_percent <= 0 else "inverse"
+            if metric_data['version_b'] > metric_data['version_a']:
+                sign = "+"
+            else:
+                sign = "-"
             st.metric(
                 "Изменение", 
-                f"{change_percent:+.1f}%",
-                delta=f"{change_percent:+.1f}%"
+                f"{sign}{change_percent:.1f}%",
+                delta=f"{sign}{change_percent:.1f}%"
             )
         
 
