@@ -229,11 +229,8 @@ def compute_url_metrics(version: str, top_n: int = 200) -> pl.DataFrame:
     visits_df = visits_lf.collect(streaming=True)
     visits_hc = add_hits_count(visits_df)
 
-    # фильтр только URL priem.mai.ru для ПОСТРАНИЧНЫХ метрик
     visits_hc = visits_hc.filter(is_priem_url(pl.col("ym:s:startURL")))
 
-
-    # группируем по стартовому URL
     visits_by_url = (
         visits_hc
         .group_by(pl.col("ym:s:startURL").fill_null("unknown").alias("url"))
@@ -243,14 +240,12 @@ def compute_url_metrics(version: str, top_n: int = 200) -> pl.DataFrame:
         ])
     )
 
-    # ---------- HITS: хиты по URL ----------
     hits_lf = (
         pl.scan_parquet(hits_file)
         .select(["ym:pv:URL", "ym:pv:pageViewID"])
     )
     hits_df = hits_lf.collect(streaming=True)
 
-    # фильтр только URL priem.mai.ru для ПОСТРАНИЧНЫХ метрик
     hits_df = hits_df.filter(is_priem_url(pl.col("ym:pv:URL")))
 
 
@@ -291,22 +286,18 @@ def compute_url_metrics(version: str, top_n: int = 200) -> pl.DataFrame:
 
 
 
-# === ЗАПУСК ===
-print("ГЛУБОКИЙ АНАЛИЗ МЕТРИК...")
+
 metrics_v1 = compute_advanced_metrics("v1")
 metrics_v2 = compute_advanced_metrics("v2")
 
-print("\n📄 Считаем метрики по URL...")
 url_metrics_v1 = compute_url_metrics("v1", top_n=200)
 url_metrics_v2 = compute_url_metrics("v2", top_n=200)
 
 url_metrics_v1.write_parquet(OUTPUT_DIR / "url_metrics_v1.parquet")
 url_metrics_v2.write_parquet(OUTPUT_DIR / "url_metrics_v2.parquet")
 
-print("✅ url_metrics_v1.parquet и url_metrics_v2.parquet сохранены")
+print("url_metrics_v1.parquet и url_metrics_v2.parquet сохранены")
 
-
-# ПОЛНАЯ ТАБЛИЦА СРАВНЕНИЯ
 key_metrics = [
     "total_visits", "total_hits", "unique_users", "new_users",
     "new_user_rate", "bounce_rate", "pages_per_visit", 
@@ -319,28 +310,5 @@ comparison = pl.DataFrame({
     "v2": pl.Series("v2", [metrics_v2.get(m, 0) for m in key_metrics], dtype=pl.Float64)
 })
 
-print("\n=== КЛЮЧЕВЫЕ МЕТРИКИ v1 vs v2 ===")
-print(comparison)
-
-# КРАСИВАЯ ТАБЛИЦА
-print("\n" + "="*80)
-print("ПОЛНОЕ СРАВНЕНИЕ ВЕРСИЙ САЙТА")
-print("="*80)
-print("| Метрика              | v1_2022        | v2_2024        | Δ       |")
-print("|----------------------|----------------|----------------|---------|")
-print(f"| Визитов              | {metrics_v1['total_visits']:,}     | {metrics_v2['total_visits']:,}     | {((metrics_v2['total_visits']/metrics_v1['total_visits']-1)*100):+5.1f}% |")
-print(f"| Хитов                | {metrics_v1['total_hits']:,}     | {metrics_v2['total_hits']:,}     | {((metrics_v2['total_hits']/metrics_v1['total_hits']-1)*100):+5.1f}% |")
-print(f"| Уник. пользователей  | {metrics_v1['unique_users']:,}  | {metrics_v2['unique_users']:,}  | {((metrics_v2['unique_users']/metrics_v1['unique_users']-1)*100):+5.1f}% |")
-print(f"| Новых пользователей  | {metrics_v1['new_user_rate']:.1f}% | {metrics_v2['new_user_rate']:.1f}% | {metrics_v2['new_user_rate']-metrics_v1['new_user_rate']:+4.1f} |")
-print(f"| Отказы               | {metrics_v1['bounce_rate']:.1f}% | {metrics_v2['bounce_rate']:.1f}% | {metrics_v2['bounce_rate']-metrics_v1['bounce_rate']:+4.1f} |")
-print(f"| Страниц за визит     | {metrics_v1['pages_per_visit']:.1f}  | {metrics_v2['pages_per_visit']:.1f}  | {metrics_v2['pages_per_visit']-metrics_v1['pages_per_visit']:+4.1f} |")
-print(f"| Глубокие визиты      | {metrics_v1['deep_visits_rate']:.1f}% | {metrics_v2['deep_visits_rate']:.1f}% | {metrics_v2['deep_visits_rate']-metrics_v1['deep_visits_rate']:+4.1f} |")
-print("="*80)
-
-# СОХРАНЕНИЕ
 comparison.write_parquet(OUTPUT_DIR / "advanced_metrics.parquet")
 pl.DataFrame([{"version": "v1", **metrics_v1}, {"version": "v2", **metrics_v2}]).write_parquet(OUTPUT_DIR / "full_metrics.parquet")
-
-print(f"\n✅ ✅ Готово! Файлы: {OUTPUT_DIR}")
-print("advanced_metrics.parquet — для анализа")
-print("full_metrics.parquet — полный дамп")
