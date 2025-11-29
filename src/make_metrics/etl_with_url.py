@@ -1,7 +1,6 @@
 from pathlib import Path
 import polars as pl
 from collections import defaultdict
-from datetime import datetime
 
 DATA_DIR = Path("data/raw")
 OUTPUT_DIR = Path("data/metrics")
@@ -40,13 +39,10 @@ def compute_advanced_metrics(version: str) -> dict:
     
     visits_file = DATA_DIR / VISITS_FILES[version]
     hits_file = DATA_DIR / HITS_FILES[version]
-    
-    # Аккумуляторы
+
     metrics = defaultdict(float)
     
-    # ===============================
-    # 1. БАЗОВЫЕ МЕТРИКИ (VISITS)
-    # ===============================
+    # БАЗОВЫЕ МЕТРИКИ (VISITS)
     print("Базовые метрики...")
     visits_lf = (
         pl.scan_parquet(visits_file)
@@ -69,14 +65,12 @@ def compute_advanced_metrics(version: str) -> dict:
         chunk_size = visits.height
         total_visits += chunk_size
 
-        # Новые пользователи
         new_users += visits.select(pl.col("ym:s:isNewUser").sum()).item()
 
         visits_hc = add_hits_count(visits)
         chunk_bounce = visits_hc.select(pl.col("hits_count").eq(1).sum()).item()
         bounce_visits += chunk_bounce
 
-        # сумма длительностей визитов в секундах
         sum_visit_duration += (
             visits
             .select(pl.col("ym:s:visitDuration").cast(pl.Float64, strict=False).sum())
@@ -88,11 +82,8 @@ def compute_advanced_metrics(version: str) -> dict:
     avg_session_duration = (
         float(sum_visit_duration / total_visits) if total_visits else 0.0
     )
-    
-    # ===============================
-    # 2. HITS & ПУТИ ПО СЕЙТУ
-    # ===============================
-    print(" Hits и пути...")
+
+    # HITS
     hits_lf = (
         pl.scan_parquet(hits_file)
         .select([
@@ -113,10 +104,8 @@ def compute_advanced_metrics(version: str) -> dict:
         chunk_hits = hits.height
         total_hits += chunk_hits
 
-        # Уникальные пользователи в чанке (UInt64 без кастов)
         unique_users += hits["ym:pv:clientID"].n_unique()
-        
-        # Популярные страницы (топ-10)
+
         top_pages = (
             hits.group_by("ym:pv:URL")
             .agg(total=pl.col("ym:pv:pageViewID").count())
@@ -128,16 +117,11 @@ def compute_advanced_metrics(version: str) -> dict:
         
         print(f"  Hits: {total_hits:,}")
 
-    # ===============================
-    # 3. ГЛУБОКИЕ МЕТРИКИ
-    # ===============================
-    print("Глубокий анализ...")
+    # БОЛЕЕ ГЛУБОКИЕ МЕТРИКИ
     
-    # Конверсия по глубине просмотра
     depth_1 = bounce_visits
     depth_2plus = total_visits - bounce_visits
     
-    # Топ лендинги и экзиты (из visits)
     top_landing_df = (
         visits
         .group_by(pl.col("ym:s:startURL").fill_null("unknown"))
@@ -146,7 +130,6 @@ def compute_advanced_metrics(version: str) -> dict:
         .head(1)
     )
 
-    # сам URL как строка
     top_landing_url = top_landing_df["ym:s:startURL"][0]
 
     top_exit_df = (
@@ -158,44 +141,36 @@ def compute_advanced_metrics(version: str) -> dict:
     )
     top_exit_url = top_exit_df["ym:s:endURL"][0]
 
-    # список (url, count) отсортированный по count по убыванию
     top3 = sorted(landing_pages.items(), key=lambda kv: kv[1], reverse=True)[:3]
 
-    # сумма показов топ-3
     top_pages_count = sum(count for _, count in top3)
 
     
     metrics.update({
-        # Базовые
         "total_visits": int(total_visits),
         "total_hits": int(total_hits),
         "unique_users": int(unique_users),
         "new_users": int(new_users),
-        
-        # Проценты
+
         "new_user_rate": float(new_users / total_visits * 100),
         "bounce_rate": float(bounce_visits / total_visits * 100) if total_visits else 0.0,
         "pages_per_visit": float(total_hits / total_visits),
         "user_engagement": float((total_visits - bounce_visits) / total_visits * 100),
-        
-        # Глубина
+
         "visits_depth_1": int(depth_1),
         "visits_depth_2plus": int(depth_2plus),
         "deep_visits_rate": float((total_visits - bounce_visits) / total_visits * 100) if total_visits else 0.0,
-        
-        # Трафик
+
         "unique_users": int(unique_users),
         "hits_per_user": float(total_hits / unique_users) if unique_users else 0.0,
         "visits_per_user": float(total_visits / unique_users) if unique_users else 0.0,
-        
-        # Качество трафика
+
         "avg_pages": float(total_hits / total_visits),
         "session_duration_sec": avg_session_duration,
-        
-        # Топ страницы (примерно)
+
         "top_landing_page": str(top_landing_url),
         "top_exit_page": str(top_exit_url),
-        "top_pages_count": int(top_pages_count),  # топ-3
+        "top_pages_count": int(top_pages_count),
     })
     
     print(f"{version}: {total_visits:,} визитов | {total_hits:,} хитов | "
@@ -217,7 +192,7 @@ def compute_url_metrics(version: str, top_n: int = 200) -> pl.DataFrame:
     visits_file = DATA_DIR / VISITS_FILES[version]
     hits_file = DATA_DIR / HITS_FILES[version]
 
-    # ---------- VISITS: визиты по лендингу + bounce ----------
+    # VISITS:
     visits_lf = (
         pl.scan_parquet(visits_file)
         .select([
@@ -255,7 +230,6 @@ def compute_url_metrics(version: str, top_n: int = 200) -> pl.DataFrame:
         .agg(pl.count().alias("page_hits"))
     )
 
-    # ---------- JOIN и расчет метрик ----------
     url_metrics = (
         hits_by_url
         .join(visits_by_url, on="url", how="outer")
