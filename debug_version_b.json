@@ -1,141 +1,604 @@
 {
   "hits_analysis": {
-    "total_hits": 200,
+    "total_hits": 6489694,
     "url_category_analysis": [
       {
         "url_category": "bachelor",
-        "views": 24,
-        "percentage": 12.0
+        "views": 355634,
+        "percentage": 5.48
       },
       {
         "url_category": "base",
-        "views": 47,
-        "percentage": 23.5
+        "views": 1401647,
+        "percentage": 21.6
       },
       {
         "url_category": "homepage",
-        "views": 59,
-        "percentage": 29.5
+        "views": 2107098,
+        "percentage": 32.47
       },
       {
         "url_category": "master",
-        "views": 2,
-        "percentage": 1.0
+        "views": 126161,
+        "percentage": 1.94
       },
       {
         "url_category": "news",
-        "views": 19,
-        "percentage": 9.5
+        "views": 342116,
+        "percentage": 5.27
       },
       {
         "url_category": "other",
-        "views": 25,
-        "percentage": 12.5
+        "views": 989080,
+        "percentage": 15.24
       },
       {
         "url_category": "rating",
-        "views": 13,
-        "percentage": 6.5
+        "views": 928499,
+        "percentage": 14.31
       },
       {
         "url_category": "results",
-        "views": 11,
-        "percentage": 5.5
+        "views": 239459,
+        "percentage": 3.69
       }
     ],
     "top_urls": [
       {
+        "ym:pv:URL": "https://priem.mai.ru/rating/",
+        "views": 899748,
+        "percentage": 13.86
+      },
+      {
         "ym:pv:URL": "https://priem.mai.ru/",
-        "views": 22,
-        "percentage": 11.0
+        "views": 782145,
+        "percentage": 12.05
       },
       {
         "ym:pv:URL": "https://priem.mai.ru/base/programs/?city=Москва",
-        "views": 14,
-        "percentage": 7.0
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/rating/",
-        "views": 13,
-        "percentage": 6.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/news/item.php?id=181942",
-        "views": 9,
-        "percentage": 4.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/results/orders/2024.php",
-        "views": 9,
-        "percentage": 4.5
+        "views": 264829,
+        "percentage": 4.08
       },
       {
         "ym:pv:URL": "https://priem.mai.ru/list/",
-        "views": 8,
-        "percentage": 4.0
+        "views": 238440,
+        "percentage": 3.67
       },
       {
-        "ym:pv:URL": "https://priem.mai.ru/news/item.php?id=181830",
-        "views": 8,
-        "percentage": 4.0
+        "ym:pv:URL": "https://priem.mai.ru/results/orders/2024.php",
+        "views": 154625,
+        "percentage": 2.38
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/spec/programs/",
+        "views": 113541,
+        "percentage": 1.75
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/base/score/",
+        "views": 75549,
+        "percentage": 1.16
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/contacts/",
+        "views": 66116,
+        "percentage": 1.02
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/results/orders/2023.php",
+        "views": 62589,
+        "percentage": 0.96
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/calendar/",
+        "views": 58953,
+        "percentage": 0.91
+      },
+      {
+        "ym:pv:URL": "https://dzen.ru/a/ZwYnZgOBi2lzOvZb",
+        "views": 57210,
+        "percentage": 0.88
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/exams/",
+        "views": 54972,
+        "percentage": 0.85
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/base/",
+        "views": 53143,
+        "percentage": 0.82
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/base/programs/",
+        "views": 50771,
+        "percentage": 0.78
       },
       {
         "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/?city=Москва",
-        "views": 7,
-        "percentage": 3.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/mega/",
-        "views": 5,
-        "percentage": 2.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/preoder/",
-        "views": 5,
-        "percentage": 2.5
-      },
-      {
-        "ym:pv:URL": "https://dzen.ru/a/Ywxq2Rqip16tUFeR",
-        "views": 4,
-        "percentage": 2.0
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/?level=Базовое высшее образование (5,5 лет)&city=Москва&fac=engines",
-        "views": 4,
-        "percentage": 2.0
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/base/programs/informatika/",
-        "views": 4,
-        "percentage": 2.0
-      },
-      {
-        "ym:pv:URL": "https://dzen.ru/a/XsKbsGSiDQEipck8",
-        "views": 3,
-        "percentage": 1.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/base/programs/?mega=Компьютерные науки и прикладная математика&city=Москва",
-        "views": 3,
-        "percentage": 1.5
+        "views": 50380,
+        "percentage": 0.78
       }
     ],
-    "total_unique_urls": 69,
-    "numeric_stats": {}
+    "total_unique_urls": 44949,
+    "numeric_stats": {
+      "ym:pv:pageViewID": {
+        "mean": 536005181.693025,
+        "median": 536083359.0,
+        "std": 310518815.90191853,
+        "min": 0.0,
+        "max": 1073741423.0,
+        "q25": 267271276.0,
+        "q75": 804926756.0,
+        "non_zero_count": 6477138,
+        "zero_percentage": 0.19347599439973595
+      },
+      "ym:pv:counterID": {
+        "mean": 45231030.0,
+        "median": 45231030.0,
+        "std": 0.0,
+        "min": 45231030.0,
+        "max": 45231030.0,
+        "q25": 45231030.0,
+        "q75": 45231030.0,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:clientID": {
+        "mean": 1.6815112997201116e+18,
+        "median": 1.7169956836586854e+18,
+        "std": 1.4671003009423987e+18,
+        "min": 0.0,
+        "max": 1.7327865041008763e+19,
+        "q25": 1.697385990617456e+18,
+        "q75": 1.7207887663159365e+18,
+        "non_zero_count": 6481874,
+        "zero_percentage": 0.12049874770674858
+      },
+      "ym:pv:counterUserIDHash": {
+        "mean": 9.244164265536209e+18,
+        "median": 9.257060559794432e+18,
+        "std": 5.346592974108032e+18,
+        "min": 16911203345299.0,
+        "max": 1.8446696455181871e+19,
+        "q25": 4.590419070735486e+18,
+        "q75": 1.3881508002848383e+19,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:openstatAd": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:openstatCampaign": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:openstatService": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:openstatSource": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:hasGCLID": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:GCLID": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:browserMajorVersion": {
+        "mean": 97.44637821136097,
+        "median": 106.0,
+        "std": 237.01864864786705,
+        "min": 0.0,
+        "max": 9690.0,
+        "q25": 24.0,
+        "q75": 126.0,
+        "non_zero_count": 6472871,
+        "zero_percentage": 0.25922639803972264
+      },
+      "ym:pv:browserMinorVersion": {
+        "mean": 5.074927833448946,
+        "median": 0.0,
+        "std": 13.27180850454411,
+        "min": 0.0,
+        "max": 99.0,
+        "q25": 0.0,
+        "q75": 6.0,
+        "non_zero_count": 2925889,
+        "zero_percentage": 54.91483881982725
+      },
+      "ym:pv:browserEngineVersion1": {
+        "mean": 539.005786251247,
+        "median": 537.0,
+        "std": 74.23287934107027,
+        "min": 0.0,
+        "max": 608.0,
+        "q25": 537.0,
+        "q75": 537.0,
+        "non_zero_count": 6484523,
+        "zero_percentage": 0.07968018214726304
+      },
+      "ym:pv:browserEngineVersion2": {
+        "mean": 28.881764533119743,
+        "median": 36.0,
+        "std": 93.82015649285322,
+        "min": 0.0,
+        "max": 19041.0,
+        "q25": 36.0,
+        "q75": 36.0,
+        "non_zero_count": 6321278,
+        "zero_percentage": 2.5951300631431926
+      },
+      "ym:pv:browserEngineVersion3": {
+        "mean": 2.862326944845165,
+        "median": 0.0,
+        "std": 7.188398640191169,
+        "min": 0.0,
+        "max": 5993.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 1236990,
+        "zero_percentage": 80.93916292509323
+      },
+      "ym:pv:browserEngineVersion4": {
+        "mean": 0.0003282127015541873,
+        "median": 0.0,
+        "std": 0.4827327897374942,
+        "min": 0.0,
+        "max": 710.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 3,
+        "zero_percentage": 99.99995377285894
+      },
+      "ym:pv:clientTimeZone": {
+        "mean": 195.7077142620284,
+        "median": 180.0,
+        "std": 90.70321526855572,
+        "min": -720.0,
+        "max": 840.0,
+        "q25": 180.0,
+        "q75": 180.0,
+        "non_zero_count": 6481636,
+        "zero_percentage": 0.12416610089782353
+      },
+      "ym:pv:cookieEnabled": {
+        "mean": 0.9998731835430145,
+        "median": 1.0,
+        "std": 0.011260568107802606,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 1.0,
+        "q75": 1.0,
+        "non_zero_count": 6488871,
+        "zero_percentage": 0.012681645698549114
+      },
+      "ym:pv:javascriptEnabled": {
+        "mean": 0.9999636346490297,
+        "median": 1.0,
+        "std": 0.006030259872917835,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 1.0,
+        "q75": 1.0,
+        "non_zero_count": 6489458,
+        "zero_percentage": 0.00363653509703231
+      },
+      "ym:pv:deviceCategory": {
+        "mean": 1.5662484240397159,
+        "median": 2.0,
+        "std": 0.5211910881795965,
+        "min": 1.0,
+        "max": 4.0,
+        "q25": 1.0,
+        "q75": 2.0,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:physicalScreenHeight": {
+        "mean": 1679.006196594169,
+        "median": 1602.0,
+        "std": 692.2086522407686,
+        "min": 0.0,
+        "max": 8724.0,
+        "q25": 1080.0,
+        "q75": 2400.0,
+        "non_zero_count": 6479898,
+        "zero_percentage": 0.15094702462088352
+      },
+      "ym:pv:physicalScreenWidth": {
+        "mean": 1374.1248605866472,
+        "median": 1180.0,
+        "std": 524.06785704774,
+        "min": 0.0,
+        "max": 11520.0,
+        "q25": 1080.0,
+        "q75": 1920.0,
+        "non_zero_count": 6479951,
+        "zero_percentage": 0.15013034512875337
+      },
+      "ym:pv:screenColors": {
+        "mean": 23.909717777140187,
+        "median": 24.0,
+        "std": 3.8597910033551006,
+        "min": 0.0,
+        "max": 32.0,
+        "q25": 24.0,
+        "q75": 24.0,
+        "non_zero_count": 6357691,
+        "zero_percentage": 2.0340404339557456
+      },
+      "ym:pv:screenHeight": {
+        "mean": 911.8574259433495,
+        "median": 873.0,
+        "std": 158.07720744412066,
+        "min": 0.0,
+        "max": 6000.0,
+        "q25": 820.0,
+        "q75": 1024.0,
+        "non_zero_count": 6487712,
+        "zero_percentage": 0.030540731196262876
+      },
+      "ym:pv:screenWidth": {
+        "mean": 994.2427723094494,
+        "median": 414.0,
+        "std": 721.3790610304836,
+        "min": 0.0,
+        "max": 6400.0,
+        "q25": 390.0,
+        "q75": 1600.0,
+        "non_zero_count": 6487765,
+        "zero_percentage": 0.02972405170413274
+      },
+      "ym:pv:screenOrientation": {
+        "mean": 1.4456116112716562,
+        "median": 1.0,
+        "std": 0.5027621635323378,
+        "min": 0.0,
+        "max": 2.0,
+        "q25": 1.0,
+        "q75": 2.0,
+        "non_zero_count": 6471108,
+        "zero_percentage": 0.28639254793831576
+      },
+      "ym:pv:windowClientHeight": {
+        "mean": 780.0944022938523,
+        "median": 737.0,
+        "std": 195.3552343489693,
+        "min": 0.0,
+        "max": 9631.0,
+        "q25": 667.0,
+        "q75": 878.0,
+        "non_zero_count": 6467685,
+        "zero_percentage": 0.3391377158923055
+      },
+      "ym:pv:windowClientWidth": {
+        "mean": 984.4930038303809,
+        "median": 414.0,
+        "std": 731.8679416797335,
+        "min": 0.0,
+        "max": 7987.0,
+        "q25": 390.0,
+        "q75": 1536.0,
+        "non_zero_count": 6467134,
+        "zero_percentage": 0.3476281008010547
+      },
+      "ym:pv:regionCityID": {
+        "mean": 2500.090430766073,
+        "median": 213.0,
+        "std": 8770.75492537559,
+        "min": 0.0,
+        "max": 219611.0,
+        "q25": 10.0,
+        "q75": 213.0,
+        "non_zero_count": 5254009,
+        "zero_percentage": 19.04072826854394
+      },
+      "ym:pv:regionCountryID": {
+        "mean": 244.65866741944998,
+        "median": 225.0,
+        "std": 622.3194314762343,
+        "min": 0.0,
+        "max": 98552.0,
+        "q25": 225.0,
+        "q75": 225.0,
+        "non_zero_count": 6473617,
+        "zero_percentage": 0.24773124896181545
+      },
+      "ym:pv:isPageView": {
+        "mean": 0.6042619266794398,
+        "median": 1.0,
+        "std": 0.4890086783408515,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 1.0,
+        "non_zero_count": 3921475,
+        "zero_percentage": 39.57380733205603
+      },
+      "ym:pv:isTurboPage": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:isTurboApp": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:iFrame": {
+        "mean": 1.371405184897778e-05,
+        "median": 0.0,
+        "std": 0.003703223715485699,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 89,
+        "zero_percentage": 99.9986285948151
+      },
+      "ym:pv:link": {
+        "mean": 0.07807841170939647,
+        "median": 0.0,
+        "std": 0.2682949578842344,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 506705,
+        "zero_percentage": 92.19215882906036
+      },
+      "ym:pv:download": {
+        "mean": 0.03034210858015802,
+        "median": 0.0,
+        "std": 0.17152687707947112,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 196911,
+        "zero_percentage": 96.96578914198419
+      },
+      "ym:pv:notBounce": {
+        "mean": 0.2715896928268112,
+        "median": 0.0,
+        "std": 0.4447794532805855,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 1.0,
+        "non_zero_count": 1762534,
+        "zero_percentage": 72.84103071731887
+      },
+      "ym:pv:offlineUploadingID": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:httpError": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:shareService": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:shareURL": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:shareTitle": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 6489694,
+        "zero_percentage": 0.0
+      }
+    }
   },
   "visits_analysis": {
-    "total_visits": 200,
+    "total_visits": 1431873,
     "session_metrics": {
       "avg_session_depth": 1.0,
       "median_session_depth": 1.0,
       "std_session_depth": 0.0,
       "max_session_depth": 1,
       "min_session_depth": 1,
-      "single_page_sessions": 200,
+      "single_page_sessions": 1431873,
       "multi_page_sessions": 0,
       "bounce_rate": 100.0,
       "depth_distribution": {
-        "1": 200
+        "1": 1431873
       },
       "depth_percentiles": {
         "q10": 1.0,
@@ -147,24 +610,202 @@
     }
   },
   "combined_metrics": {
-    "hits_per_visit": 1.0,
-    "total_data_points": 400
+    "hits_per_visit": 4.532311175641974,
+    "total_data_points": 7921567
   },
   "data_sources": {
     "hits_file": "data/v2_hits.parquet",
     "visits_file": "data/v2_visits.parquet",
     "hits_columns": [
       "ym:pv:watchID",
-      "ym:pv:URL",
+      "ym:pv:pageViewID",
+      "ym:pv:counterID",
+      "ym:pv:clientID",
+      "ym:pv:counterUserIDHash",
+      "ym:pv:date",
       "ym:pv:dateTime",
-      "version",
+      "ym:pv:title",
+      "ym:pv:pageCharset",
+      "ym:pv:goalsID",
+      "ym:pv:URL",
+      "ym:pv:referer",
+      "ym:pv:UTMCampaign",
+      "ym:pv:UTMContent",
+      "ym:pv:UTMMedium",
+      "ym:pv:UTMSource",
+      "ym:pv:UTMTerm",
+      "ym:pv:openstatAd",
+      "ym:pv:openstatCampaign",
+      "ym:pv:openstatService",
+      "ym:pv:openstatSource",
+      "ym:pv:lastTrafficSource",
+      "ym:pv:lastSearchEngineRoot",
+      "ym:pv:lastSearchEngine",
+      "ym:pv:lastAdvEngine",
+      "ym:pv:lastSocialNetwork",
+      "ym:pv:lastSocialNetworkProfile",
+      "ym:pv:recommendationSystem",
+      "ym:pv:messenger",
+      "ym:pv:from",
+      "ym:pv:hasGCLID",
+      "ym:pv:GCLID",
+      "ym:pv:browser",
+      "ym:pv:browserMajorVersion",
+      "ym:pv:browserMinorVersion",
+      "ym:pv:browserCountry",
+      "ym:pv:browserEngine",
+      "ym:pv:browserEngineVersion1",
+      "ym:pv:browserEngineVersion2",
+      "ym:pv:browserEngineVersion3",
+      "ym:pv:browserEngineVersion4",
+      "ym:pv:browserLanguage",
+      "ym:pv:clientTimeZone",
+      "ym:pv:cookieEnabled",
+      "ym:pv:javascriptEnabled",
+      "ym:pv:deviceCategory",
+      "ym:pv:operatingSystem",
+      "ym:pv:operatingSystemRoot",
+      "ym:pv:mobilePhone",
+      "ym:pv:mobilePhoneModel",
+      "ym:pv:physicalScreenHeight",
+      "ym:pv:physicalScreenWidth",
+      "ym:pv:screenColors",
+      "ym:pv:screenFormat",
+      "ym:pv:screenHeight",
+      "ym:pv:screenWidth",
+      "ym:pv:screenOrientation",
+      "ym:pv:screenOrientationName",
+      "ym:pv:windowClientHeight",
+      "ym:pv:windowClientWidth",
+      "ym:pv:ipAddress",
+      "ym:pv:regionCity",
+      "ym:pv:regionCountry",
+      "ym:pv:regionCityID",
+      "ym:pv:regionCountryID",
+      "ym:pv:isPageView",
+      "ym:pv:isTurboPage",
+      "ym:pv:isTurboApp",
+      "ym:pv:iFrame",
+      "ym:pv:link",
+      "ym:pv:download",
+      "ym:pv:notBounce",
+      "ym:pv:offlineUploadingID",
+      "ym:pv:params",
+      "ym:pv:parsedParamsKey1",
+      "ym:pv:parsedParamsKey2",
+      "ym:pv:parsedParamsKey3",
+      "ym:pv:parsedParamsKey4",
+      "ym:pv:parsedParamsKey5",
+      "ym:pv:parsedParamsKey6",
+      "ym:pv:parsedParamsKey7",
+      "ym:pv:parsedParamsKey8",
+      "ym:pv:parsedParamsKey9",
+      "ym:pv:parsedParamsKey10",
+      "ym:pv:httpError",
+      "ym:pv:networkType",
+      "ym:pv:shareService",
+      "ym:pv:shareURL",
+      "ym:pv:shareTitle",
       "url_category"
     ],
     "visits_columns": [
       "ym:s:visitID",
-      "ym:s:date",
+      "ym:s:counterID",
       "ym:s:watchIDs",
-      "version",
+      "ym:s:date",
+      "ym:s:dateTime",
+      "ym:s:dateTimeUTC",
+      "ym:s:isNewUser",
+      "ym:s:startURL",
+      "ym:s:endURL",
+      "ym:s:pageViews",
+      "ym:s:visitDuration",
+      "ym:s:bounce",
+      "ym:s:ipAddress",
+      "ym:s:regionCountry",
+      "ym:s:regionCity",
+      "ym:s:regionCountryID",
+      "ym:s:regionCityID",
+      "ym:s:clientID",
+      "ym:s:counterUserIDHash",
+      "ym:s:networkType",
+      "ym:s:goalsID",
+      "ym:s:goalsSerialNumber",
+      "ym:s:goalsDateTime",
+      "ym:s:goalsPrice",
+      "ym:s:goalsOrder",
+      "ym:s:goalsCurrency",
+      "ym:s:lastsignTrafficSource",
+      "ym:s:lastsignAdvEngine",
+      "ym:s:lastsignReferalSource",
+      "ym:s:lastsignSearchEngineRoot",
+      "ym:s:lastsignSearchEngine",
+      "ym:s:lastsignSocialNetwork",
+      "ym:s:lastsignSocialNetworkProfile",
+      "ym:s:referer",
+      "ym:s:lastsignDirectClickOrder",
+      "ym:s:lastsignDirectBannerGroup",
+      "ym:s:lastsignDirectClickBanner",
+      "ym:s:lastsignDirectClickOrderName",
+      "ym:s:lastsignClickBannerGroupName",
+      "ym:s:lastsignDirectClickBannerName",
+      "ym:s:lastsignDirectPhraseOrCond",
+      "ym:s:lastsignDirectPlatformType",
+      "ym:s:lastsignDirectPlatform",
+      "ym:s:lastsignDirectConditionType",
+      "ym:s:lastsignCurrencyID",
+      "ym:s:from",
+      "ym:s:lastsignUTMCampaign",
+      "ym:s:lastsignUTMContent",
+      "ym:s:lastsignUTMMedium",
+      "ym:s:lastsignUTMSource",
+      "ym:s:lastsignUTMTerm",
+      "ym:s:lastsignopenstatAd",
+      "ym:s:lastsignopenstatCampaign",
+      "ym:s:lastsignopenstatService",
+      "ym:s:lastsignopenstatSource",
+      "ym:s:lastsignhasGCLID",
+      "ym:s:lastsignGCLID",
+      "ym:s:browserLanguage",
+      "ym:s:browserCountry",
+      "ym:s:clientTimeZone",
+      "ym:s:deviceCategory",
+      "ym:s:mobilePhone",
+      "ym:s:mobilePhoneModel",
+      "ym:s:operatingSystemRoot",
+      "ym:s:operatingSystem",
+      "ym:s:browser",
+      "ym:s:browserMajorVersion",
+      "ym:s:browserMinorVersion",
+      "ym:s:browserEngine",
+      "ym:s:browserEngineVersion1",
+      "ym:s:browserEngineVersion2",
+      "ym:s:browserEngineVersion3",
+      "ym:s:browserEngineVersion4",
+      "ym:s:cookieEnabled",
+      "ym:s:javascriptEnabled",
+      "ym:s:screenFormat",
+      "ym:s:screenColors",
+      "ym:s:screenOrientation",
+      "ym:s:screenOrientationName",
+      "ym:s:screenWidth",
+      "ym:s:screenHeight",
+      "ym:s:physicalScreenWidth",
+      "ym:s:physicalScreenHeight",
+      "ym:s:windowClientWidth",
+      "ym:s:windowClientHeight",
+      "ym:s:parsedParamsKey1",
+      "ym:s:parsedParamsKey2",
+      "ym:s:parsedParamsKey3",
+      "ym:s:parsedParamsKey4",
+      "ym:s:parsedParamsKey5",
+      "ym:s:parsedParamsKey6",
+      "ym:s:parsedParamsKey7",
+      "ym:s:parsedParamsKey8",
+      "ym:s:parsedParamsKey9",
+      "ym:s:parsedParamsKey10",
+      "ym:s:lastsignRecommendationSystem",
+      "ym:s:lastsignMessenger",
       "session_depth"
     ]
   }

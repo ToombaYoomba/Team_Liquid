@@ -1,131 +1,555 @@
 {
   "hits_analysis": {
-    "total_hits": 200,
+    "total_hits": 5883970,
     "url_category_analysis": [
       {
         "url_category": "bachelor",
-        "views": 71,
-        "percentage": 35.5
+        "views": 1433368,
+        "percentage": 24.36
       },
       {
         "url_category": "homepage",
-        "views": 48,
-        "percentage": 24.0
+        "views": 1147889,
+        "percentage": 19.51
       },
       {
         "url_category": "master",
-        "views": 17,
-        "percentage": 8.5
+        "views": 281966,
+        "percentage": 4.79
       },
       {
         "url_category": "news",
-        "views": 12,
-        "percentage": 6.0
+        "views": 280222,
+        "percentage": 4.76
       },
       {
         "url_category": "other",
-        "views": 50,
-        "percentage": 25.0
+        "views": 1559947,
+        "percentage": 26.51
+      },
+      {
+        "url_category": "rating",
+        "views": 919282,
+        "percentage": 15.62
       },
       {
         "url_category": "results",
-        "views": 2,
-        "percentage": 1.0
+        "views": 261296,
+        "percentage": 4.44
       }
     ],
     "top_urls": [
       {
         "ym:pv:URL": "https://priem.mai.ru/",
-        "views": 23,
-        "percentage": 11.5
+        "views": 483192,
+        "percentage": 8.21
       },
       {
         "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/",
-        "views": 23,
-        "percentage": 11.5
+        "views": 375614,
+        "percentage": 6.38
       },
       {
-        "ym:pv:URL": "https://priem.mai.ru/bachelor/application/",
-        "views": 22,
-        "percentage": 11.0
+        "ym:pv:URL": "https://priem.mai.ru/?referer=https:%2F%2Fmai.ru%2F",
+        "views": 231698,
+        "percentage": 3.94
       },
       {
-        "ym:pv:URL": "https://zen.yandex.ru/media/id/5aded8b748c85ece27e530dd/bystree-vyshe-umnee-kak-v-mai-rabotaiut-nad-novym-sverhzvukovym-samoletom-62025b8a70837a6f9be13b38",
-        "views": 18,
-        "percentage": 9.0
+        "ym:pv:URL": "https://priem.mai.ru/rating/",
+        "views": 200417,
+        "percentage": 3.41
       },
       {
-        "ym:pv:URL": "https://dzen.ru/a/Yz0lnD7VD0lHfzel",
-        "views": 8,
-        "percentage": 4.0
+        "ym:pv:URL": "https://priem.mai.ru/rating/?referer=https:%2F%2Fyandex.ru%2F",
+        "views": 162847,
+        "percentage": 2.77
       },
       {
-        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/item/index.php?id=102926&referer=https:%2F%2Fwww.google.com%2F",
-        "views": 4,
-        "percentage": 2.0
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/master/programs/",
-        "views": 4,
-        "percentage": 2.0
-      },
-      {
-        "ym:pv:URL": "https://dzen.ru/a/Y3MxjrkIImguxC3x",
-        "views": 3,
-        "percentage": 1.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/bachelor/special-purpose/#videos",
-        "views": 3,
-        "percentage": 1.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/news/item.php?id=162829",
-        "views": 3,
-        "percentage": 1.5
-      },
-      {
-        "ym:pv:URL": "https://priem.mai.ru/orders/programs/",
-        "views": 3,
-        "percentage": 1.5
-      },
-      {
-        "ym:pv:URL": "https://zen.yandex.ru/media/id/5aded8b748c85ece27e530dd/kineticheskii-nakopitel-energii-novyi-istochnik-avariinogo-pitaniia-61de743db43a5e5e9418a938",
-        "views": 3,
-        "percentage": 1.5
-      },
-      {
-        "ym:pv:URL": "goal://priem.mai.ru/B24_FORM_2_VIEW",
-        "views": 2,
-        "percentage": 1.0
+        "ym:pv:URL": "https://priem.mai.ru/rating/?referer=https:%2F%2Flk.mai.ru%2F",
+        "views": 105975,
+        "percentage": 1.8
       },
       {
         "ym:pv:URL": "https://lk.mai.ru/",
-        "views": 2,
-        "percentage": 1.0
+        "views": 104800,
+        "percentage": 1.78
       },
       {
-        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/item/index.php?id=102898",
-        "views": 2,
-        "percentage": 1.0
+        "ym:pv:URL": "https://priem.mai.ru/rating/?referer=https:%2F%2Fwww.google.com%2F",
+        "views": 102790,
+        "percentage": 1.75
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/list/",
+        "views": 97340,
+        "percentage": 1.65
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/master/programs/",
+        "views": 79549,
+        "percentage": 1.35
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/?referer=https:%2F%2Fwww.google.com%2F",
+        "views": 78245,
+        "percentage": 1.33
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/results/orders/",
+        "views": 56746,
+        "percentage": 0.96
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/list/?referer=https:%2F%2Fyandex.ru%2F",
+        "views": 55971,
+        "percentage": 0.95
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/application/",
+        "views": 51425,
+        "percentage": 0.87
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/calendar/",
+        "views": 48277,
+        "percentage": 0.82
       }
     ],
-    "total_unique_urls": 72,
-    "numeric_stats": {}
+    "total_unique_urls": 78360,
+    "numeric_stats": {
+      "ym:pv:pageViewID": {
+        "mean": 535280524.6160674,
+        "median": 535437708.0,
+        "std": 311051089.81874967,
+        "min": 0.0,
+        "max": 1073741745.0,
+        "q25": 265830734.5,
+        "q75": 804804807.25,
+        "non_zero_count": 5865889,
+        "zero_percentage": 0.30729252528479917
+      },
+      "ym:pv:counterID": {
+        "mean": 45231030.0,
+        "median": 45231030.0,
+        "std": 0.0,
+        "min": 45231030.0,
+        "max": 45231030.0,
+        "q25": 45231030.0,
+        "q75": 45231030.0,
+        "non_zero_count": 5883970,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:clientID": {
+        "mean": 2.5805108667804037e+18,
+        "median": 1.6555678528019625e+18,
+        "std": 3.9025138868603796e+18,
+        "min": 0.0,
+        "max": 1.6724318791025928e+19,
+        "q25": 1.6416209771542356e+18,
+        "q75": 1.6584216622566968e+18,
+        "non_zero_count": 5883852,
+        "zero_percentage": 0.0020054487021517785
+      },
+      "ym:pv:counterUserIDHash": {
+        "mean": 9.27662702856749e+18,
+        "median": 9.335968454616396e+18,
+        "std": 5.347531534584799e+18,
+        "min": 12432985593172.0,
+        "max": 1.8446715928096246e+19,
+        "q25": 4.6074863495464975e+18,
+        "q75": 1.3935677073247484e+19,
+        "non_zero_count": 5883970,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:openstatAd": {
+        "mean": 12968261948.0,
+        "median": 12968261948.0,
+        "std": 0.0,
+        "min": 12968261948.0,
+        "max": 12968261948.0,
+        "q25": 12968261948.0,
+        "q75": 12968261948.0,
+        "non_zero_count": 5883970,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:openstatCampaign": {
+        "mean": 79930924.0,
+        "median": 79930924.0,
+        "std": 0.0,
+        "min": 79930924.0,
+        "max": 79930924.0,
+        "q25": 79930924.0,
+        "q75": 79930924.0,
+        "non_zero_count": 5883970,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:hasGCLID": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:GCLID": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 5883970,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:browserMajorVersion": {
+        "mean": 64.07012969134784,
+        "median": 88.0,
+        "std": 62.57842658269072,
+        "min": 0.0,
+        "max": 21051.0,
+        "q25": 22.0,
+        "q75": 103.0,
+        "non_zero_count": 5879522,
+        "zero_percentage": 0.07559521887433145
+      },
+      "ym:pv:browserMinorVersion": {
+        "mean": 5.136284405143355,
+        "median": 0.0,
+        "std": 14.47510913520805,
+        "min": 0.0,
+        "max": 99.0,
+        "q25": 0.0,
+        "q75": 5.0,
+        "non_zero_count": 2504143,
+        "zero_percentage": 57.441268395318126
+      },
+      "ym:pv:browserEngineVersion1": {
+        "mean": 534.2831659576782,
+        "median": 537.0,
+        "std": 91.34672024539809,
+        "min": 0.0,
+        "max": 8613.0,
+        "q25": 537.0,
+        "q75": 537.0,
+        "non_zero_count": 5879426,
+        "zero_percentage": 0.07722677036082781
+      },
+      "ym:pv:browserEngineVersion2": {
+        "mean": 33.10762716329281,
+        "median": 36.0,
+        "std": 310.5962445904321,
+        "min": 0.0,
+        "max": 19043.0,
+        "q25": 36.0,
+        "q75": 36.0,
+        "non_zero_count": 5670651,
+        "zero_percentage": 3.6254263702908074
+      },
+      "ym:pv:browserEngineVersion3": {
+        "mean": 2.96303176256847,
+        "median": 0.0,
+        "std": 6.014803686681721,
+        "min": 0.0,
+        "max": 423.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 1161900,
+        "zero_percentage": 80.25312841499871
+      },
+      "ym:pv:browserEngineVersion4": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:clientTimeZone": {
+        "mean": 197.90922659360942,
+        "median": 180.0,
+        "std": 69.22899310239437,
+        "min": -720.0,
+        "max": 840.0,
+        "q25": 180.0,
+        "q75": 180.0,
+        "non_zero_count": 5879091,
+        "zero_percentage": 0.08292020523558075
+      },
+      "ym:pv:cookieEnabled": {
+        "mean": 0.9996470070377653,
+        "median": 1.0,
+        "std": 0.018784792204718147,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 1.0,
+        "q75": 1.0,
+        "non_zero_count": 5881893,
+        "zero_percentage": 0.03529929622346817
+      },
+      "ym:pv:javascriptEnabled": {
+        "mean": 0.9999840243916948,
+        "median": 1.0,
+        "std": 0.003996918287916363,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 1.0,
+        "q75": 1.0,
+        "non_zero_count": 5883876,
+        "zero_percentage": 0.001597560830527688
+      },
+      "ym:pv:deviceCategory": {
+        "mean": 1.5224854987363974,
+        "median": 2.0,
+        "std": 0.5303616985918359,
+        "min": 1.0,
+        "max": 4.0,
+        "q25": 1.0,
+        "q75": 2.0,
+        "non_zero_count": 5883970,
+        "zero_percentage": 0.0
+      },
+      "ym:pv:physicalScreenHeight": {
+        "mean": 1562.7803136317825,
+        "median": 1334.0,
+        "std": 656.8127814642688,
+        "min": 0.0,
+        "max": 10756.0,
+        "q25": 1080.0,
+        "q75": 2340.0,
+        "non_zero_count": 5868392,
+        "zero_percentage": 0.26475321934000345
+      },
+      "ym:pv:physicalScreenWidth": {
+        "mean": 1372.4472568690867,
+        "median": 1280.0,
+        "std": 485.8816073764152,
+        "min": 0.0,
+        "max": 9600.0,
+        "q25": 1080.0,
+        "q75": 1920.0,
+        "non_zero_count": 5868388,
+        "zero_percentage": 0.2648212006519408
+      },
+      "ym:pv:screenColors": {
+        "mean": 25.28199837864571,
+        "median": 24.0,
+        "std": 3.932825695632843,
+        "min": 0.0,
+        "max": 32.0,
+        "q25": 24.0,
+        "q75": 24.0,
+        "non_zero_count": 5831582,
+        "zero_percentage": 0.8903512424434523
+      },
+      "ym:pv:screenHeight": {
+        "mean": 897.0641531143089,
+        "median": 869.0,
+        "std": 155.83358726911885,
+        "min": 0.0,
+        "max": 5000.0,
+        "q25": 800.0,
+        "q75": 1050.0,
+        "non_zero_count": 5870819,
+        "zero_percentage": 0.22350555832201727
+      },
+      "ym:pv:screenWidth": {
+        "mean": 1033.607160301633,
+        "median": 780.0,
+        "std": 685.4202549310561,
+        "min": 0.0,
+        "max": 5120.0,
+        "q25": 393.0,
+        "q75": 1600.0,
+        "non_zero_count": 5870815,
+        "zero_percentage": 0.22357353963395463
+      },
+      "ym:pv:screenOrientation": {
+        "mean": 1.4987562818981062,
+        "median": 2.0,
+        "std": 0.5067631247838338,
+        "min": 0.0,
+        "max": 2.0,
+        "q25": 1.0,
+        "q75": 2.0,
+        "non_zero_count": 5863934,
+        "zero_percentage": 0.34051839149417823
+      },
+      "ym:pv:windowClientHeight": {
+        "mean": 757.3983951311784,
+        "median": 726.0,
+        "std": 162.040315689985,
+        "min": 0.0,
+        "max": 4726.0,
+        "q25": 657.0,
+        "q75": 880.0,
+        "non_zero_count": 5860627,
+        "zero_percentage": 0.3967219411383811
+      },
+      "ym:pv:windowClientWidth": {
+        "mean": 1006.2878228474992,
+        "median": 800.0,
+        "std": 660.2432707067461,
+        "min": 0.0,
+        "max": 7680.0,
+        "q25": 393.0,
+        "q75": 1535.0,
+        "non_zero_count": 5860469,
+        "zero_percentage": 0.39940720295990634
+      },
+      "ym:pv:regionCityID": {
+        "mean": 2148.9750270650597,
+        "median": 213.0,
+        "std": 6716.473688350645,
+        "min": 0.0,
+        "max": 192030.0,
+        "q25": 14.0,
+        "q75": 213.0,
+        "non_zero_count": 4718606,
+        "zero_percentage": 19.80574340113903
+      },
+      "ym:pv:regionCountryID": {
+        "mean": 242.21354765574944,
+        "median": 225.0,
+        "std": 563.2073325022383,
+        "min": 0.0,
+        "max": 108137.0,
+        "q25": 225.0,
+        "q75": 225.0,
+        "non_zero_count": 5866858,
+        "zero_percentage": 0.29082405246797655
+      },
+      "ym:pv:isPageView": {
+        "mean": 0.6455036310518238,
+        "median": 1.0,
+        "std": 0.47836046266484894,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 1.0,
+        "non_zero_count": 3798124,
+        "zero_percentage": 35.449636894817615
+      },
+      "ym:pv:isTurboPage": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:isTurboApp": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:iFrame": {
+        "mean": 2.8892057573373078e-05,
+        "median": 0.0,
+        "std": 0.005375056067850936,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 170,
+        "zero_percentage": 99.99711079424266
+      },
+      "ym:pv:link": {
+        "mean": 0.08418924637617119,
+        "median": 0.0,
+        "std": 0.2776714430301116,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 495367,
+        "zero_percentage": 91.58107536238288
+      },
+      "ym:pv:download": {
+        "mean": 0.03563767320363632,
+        "median": 0.0,
+        "std": 0.18538509997612937,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 209691,
+        "zero_percentage": 96.43623267963636
+      },
+      "ym:pv:notBounce": {
+        "mean": 0.24398169943082645,
+        "median": 0.0,
+        "std": 0.42948185191268207,
+        "min": 0.0,
+        "max": 1.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 1435581,
+        "zero_percentage": 75.60183005691735
+      },
+      "ym:pv:offlineUploadingID": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:httpError": {
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "q25": 0.0,
+        "q75": 0.0,
+        "non_zero_count": 0,
+        "zero_percentage": 100.0
+      },
+      "ym:pv:shareTitle": {
+        "mean": NaN,
+        "median": NaN,
+        "std": NaN,
+        "min": NaN,
+        "max": NaN,
+        "q25": NaN,
+        "q75": NaN,
+        "non_zero_count": 5883970,
+        "zero_percentage": 0.0
+      }
+    }
   },
   "visits_analysis": {
-    "total_visits": 200,
+    "total_visits": 1242924,
     "session_metrics": {
       "avg_session_depth": 1.0,
       "median_session_depth": 1.0,
       "std_session_depth": 0.0,
       "max_session_depth": 1,
       "min_session_depth": 1,
-      "single_page_sessions": 200,
+      "single_page_sessions": 1242924,
       "multi_page_sessions": 0,
       "bounce_rate": 100.0,
       "depth_distribution": {
-        "1": 200
+        "1": 1242924
       },
       "depth_percentiles": {
         "q10": 1.0,
@@ -137,24 +561,202 @@
     }
   },
   "combined_metrics": {
-    "hits_per_visit": 1.0,
-    "total_data_points": 400
+    "hits_per_visit": 4.733974080474751,
+    "total_data_points": 7126894
   },
   "data_sources": {
     "hits_file": "data/v1_hits.parquet",
     "visits_file": "data/v1_visits.parquet",
     "hits_columns": [
       "ym:pv:watchID",
-      "ym:pv:URL",
+      "ym:pv:pageViewID",
+      "ym:pv:counterID",
+      "ym:pv:clientID",
+      "ym:pv:counterUserIDHash",
+      "ym:pv:date",
       "ym:pv:dateTime",
-      "version",
+      "ym:pv:title",
+      "ym:pv:pageCharset",
+      "ym:pv:goalsID",
+      "ym:pv:URL",
+      "ym:pv:referer",
+      "ym:pv:UTMCampaign",
+      "ym:pv:UTMContent",
+      "ym:pv:UTMMedium",
+      "ym:pv:UTMSource",
+      "ym:pv:UTMTerm",
+      "ym:pv:openstatAd",
+      "ym:pv:openstatCampaign",
+      "ym:pv:openstatService",
+      "ym:pv:openstatSource",
+      "ym:pv:lastTrafficSource",
+      "ym:pv:lastSearchEngineRoot",
+      "ym:pv:lastSearchEngine",
+      "ym:pv:lastAdvEngine",
+      "ym:pv:lastSocialNetwork",
+      "ym:pv:lastSocialNetworkProfile",
+      "ym:pv:recommendationSystem",
+      "ym:pv:messenger",
+      "ym:pv:from",
+      "ym:pv:hasGCLID",
+      "ym:pv:GCLID",
+      "ym:pv:browser",
+      "ym:pv:browserMajorVersion",
+      "ym:pv:browserMinorVersion",
+      "ym:pv:browserCountry",
+      "ym:pv:browserEngine",
+      "ym:pv:browserEngineVersion1",
+      "ym:pv:browserEngineVersion2",
+      "ym:pv:browserEngineVersion3",
+      "ym:pv:browserEngineVersion4",
+      "ym:pv:browserLanguage",
+      "ym:pv:clientTimeZone",
+      "ym:pv:cookieEnabled",
+      "ym:pv:javascriptEnabled",
+      "ym:pv:deviceCategory",
+      "ym:pv:operatingSystem",
+      "ym:pv:operatingSystemRoot",
+      "ym:pv:mobilePhone",
+      "ym:pv:mobilePhoneModel",
+      "ym:pv:physicalScreenHeight",
+      "ym:pv:physicalScreenWidth",
+      "ym:pv:screenColors",
+      "ym:pv:screenFormat",
+      "ym:pv:screenHeight",
+      "ym:pv:screenWidth",
+      "ym:pv:screenOrientation",
+      "ym:pv:screenOrientationName",
+      "ym:pv:windowClientHeight",
+      "ym:pv:windowClientWidth",
+      "ym:pv:ipAddress",
+      "ym:pv:regionCity",
+      "ym:pv:regionCountry",
+      "ym:pv:regionCityID",
+      "ym:pv:regionCountryID",
+      "ym:pv:isPageView",
+      "ym:pv:isTurboPage",
+      "ym:pv:isTurboApp",
+      "ym:pv:iFrame",
+      "ym:pv:link",
+      "ym:pv:download",
+      "ym:pv:notBounce",
+      "ym:pv:offlineUploadingID",
+      "ym:pv:params",
+      "ym:pv:parsedParamsKey1",
+      "ym:pv:parsedParamsKey2",
+      "ym:pv:parsedParamsKey3",
+      "ym:pv:parsedParamsKey4",
+      "ym:pv:parsedParamsKey5",
+      "ym:pv:parsedParamsKey6",
+      "ym:pv:parsedParamsKey7",
+      "ym:pv:parsedParamsKey8",
+      "ym:pv:parsedParamsKey9",
+      "ym:pv:parsedParamsKey10",
+      "ym:pv:httpError",
+      "ym:pv:networkType",
+      "ym:pv:shareService",
+      "ym:pv:shareURL",
+      "ym:pv:shareTitle",
       "url_category"
     ],
     "visits_columns": [
       "ym:s:visitID",
-      "ym:s:date",
+      "ym:s:counterID",
       "ym:s:watchIDs",
-      "version",
+      "ym:s:date",
+      "ym:s:dateTime",
+      "ym:s:dateTimeUTC",
+      "ym:s:isNewUser",
+      "ym:s:startURL",
+      "ym:s:endURL",
+      "ym:s:pageViews",
+      "ym:s:visitDuration",
+      "ym:s:bounce",
+      "ym:s:ipAddress",
+      "ym:s:regionCountry",
+      "ym:s:regionCity",
+      "ym:s:regionCountryID",
+      "ym:s:regionCityID",
+      "ym:s:clientID",
+      "ym:s:counterUserIDHash",
+      "ym:s:networkType",
+      "ym:s:goalsID",
+      "ym:s:goalsSerialNumber",
+      "ym:s:goalsDateTime",
+      "ym:s:goalsPrice",
+      "ym:s:goalsOrder",
+      "ym:s:goalsCurrency",
+      "ym:s:lastsignTrafficSource",
+      "ym:s:lastsignAdvEngine",
+      "ym:s:lastsignReferalSource",
+      "ym:s:lastsignSearchEngineRoot",
+      "ym:s:lastsignSearchEngine",
+      "ym:s:lastsignSocialNetwork",
+      "ym:s:lastsignSocialNetworkProfile",
+      "ym:s:referer",
+      "ym:s:lastsignDirectClickOrder",
+      "ym:s:lastsignDirectBannerGroup",
+      "ym:s:lastsignDirectClickBanner",
+      "ym:s:lastsignDirectClickOrderName",
+      "ym:s:lastsignClickBannerGroupName",
+      "ym:s:lastsignDirectClickBannerName",
+      "ym:s:lastsignDirectPhraseOrCond",
+      "ym:s:lastsignDirectPlatformType",
+      "ym:s:lastsignDirectPlatform",
+      "ym:s:lastsignDirectConditionType",
+      "ym:s:lastsignCurrencyID",
+      "ym:s:from",
+      "ym:s:lastsignUTMCampaign",
+      "ym:s:lastsignUTMContent",
+      "ym:s:lastsignUTMMedium",
+      "ym:s:lastsignUTMSource",
+      "ym:s:lastsignUTMTerm",
+      "ym:s:lastsignopenstatAd",
+      "ym:s:lastsignopenstatCampaign",
+      "ym:s:lastsignopenstatService",
+      "ym:s:lastsignopenstatSource",
+      "ym:s:lastsignhasGCLID",
+      "ym:s:lastsignGCLID",
+      "ym:s:browserLanguage",
+      "ym:s:browserCountry",
+      "ym:s:clientTimeZone",
+      "ym:s:deviceCategory",
+      "ym:s:mobilePhone",
+      "ym:s:mobilePhoneModel",
+      "ym:s:operatingSystemRoot",
+      "ym:s:operatingSystem",
+      "ym:s:browser",
+      "ym:s:browserMajorVersion",
+      "ym:s:browserMinorVersion",
+      "ym:s:browserEngine",
+      "ym:s:browserEngineVersion1",
+      "ym:s:browserEngineVersion2",
+      "ym:s:browserEngineVersion3",
+      "ym:s:browserEngineVersion4",
+      "ym:s:cookieEnabled",
+      "ym:s:javascriptEnabled",
+      "ym:s:screenFormat",
+      "ym:s:screenColors",
+      "ym:s:screenOrientation",
+      "ym:s:screenOrientationName",
+      "ym:s:screenWidth",
+      "ym:s:screenHeight",
+      "ym:s:physicalScreenWidth",
+      "ym:s:physicalScreenHeight",
+      "ym:s:windowClientWidth",
+      "ym:s:windowClientHeight",
+      "ym:s:parsedParamsKey1",
+      "ym:s:parsedParamsKey2",
+      "ym:s:parsedParamsKey3",
+      "ym:s:parsedParamsKey4",
+      "ym:s:parsedParamsKey5",
+      "ym:s:parsedParamsKey6",
+      "ym:s:parsedParamsKey7",
+      "ym:s:parsedParamsKey8",
+      "ym:s:parsedParamsKey9",
+      "ym:s:parsedParamsKey10",
+      "ym:s:lastsignRecommendationSystem",
+      "ym:s:lastsignMessenger",
       "session_depth"
     ]
   }
