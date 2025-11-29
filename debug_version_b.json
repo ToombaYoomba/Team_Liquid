@@ -1,0 +1,171 @@
+{
+  "hits_analysis": {
+    "total_hits": 200,
+    "url_category_analysis": [
+      {
+        "url_category": "bachelor",
+        "views": 24,
+        "percentage": 12.0
+      },
+      {
+        "url_category": "base",
+        "views": 47,
+        "percentage": 23.5
+      },
+      {
+        "url_category": "homepage",
+        "views": 59,
+        "percentage": 29.5
+      },
+      {
+        "url_category": "master",
+        "views": 2,
+        "percentage": 1.0
+      },
+      {
+        "url_category": "news",
+        "views": 19,
+        "percentage": 9.5
+      },
+      {
+        "url_category": "other",
+        "views": 25,
+        "percentage": 12.5
+      },
+      {
+        "url_category": "rating",
+        "views": 13,
+        "percentage": 6.5
+      },
+      {
+        "url_category": "results",
+        "views": 11,
+        "percentage": 5.5
+      }
+    ],
+    "top_urls": [
+      {
+        "ym:pv:URL": "https://priem.mai.ru/",
+        "views": 22,
+        "percentage": 11.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/base/programs/?city=Москва",
+        "views": 14,
+        "percentage": 7.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/rating/",
+        "views": 13,
+        "percentage": 6.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/news/item.php?id=181942",
+        "views": 9,
+        "percentage": 4.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/results/orders/2024.php",
+        "views": 9,
+        "percentage": 4.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/list/",
+        "views": 8,
+        "percentage": 4.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/news/item.php?id=181830",
+        "views": 8,
+        "percentage": 4.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/?city=Москва",
+        "views": 7,
+        "percentage": 3.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/mega/",
+        "views": 5,
+        "percentage": 2.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/preoder/",
+        "views": 5,
+        "percentage": 2.5
+      },
+      {
+        "ym:pv:URL": "https://dzen.ru/a/Ywxq2Rqip16tUFeR",
+        "views": 4,
+        "percentage": 2.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/?level=Базовое высшее образование (5,5 лет)&city=Москва&fac=engines",
+        "views": 4,
+        "percentage": 2.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/base/programs/informatika/",
+        "views": 4,
+        "percentage": 2.0
+      },
+      {
+        "ym:pv:URL": "https://dzen.ru/a/XsKbsGSiDQEipck8",
+        "views": 3,
+        "percentage": 1.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/base/programs/?mega=Компьютерные науки и прикладная математика&city=Москва",
+        "views": 3,
+        "percentage": 1.5
+      }
+    ],
+    "total_unique_urls": 69,
+    "numeric_stats": {}
+  },
+  "visits_analysis": {
+    "total_visits": 200,
+    "session_metrics": {
+      "avg_session_depth": 1.0,
+      "median_session_depth": 1.0,
+      "std_session_depth": 0.0,
+      "max_session_depth": 1,
+      "min_session_depth": 1,
+      "single_page_sessions": 200,
+      "multi_page_sessions": 0,
+      "bounce_rate": 100.0,
+      "depth_distribution": {
+        "1": 200
+      },
+      "depth_percentiles": {
+        "q10": 1.0,
+        "q25": 1.0,
+        "q50": 1.0,
+        "q75": 1.0,
+        "q90": 1.0
+      }
+    }
+  },
+  "combined_metrics": {
+    "hits_per_visit": 1.0,
+    "total_data_points": 400
+  },
+  "data_sources": {
+    "hits_file": "data/v2_hits.parquet",
+    "visits_file": "data/v2_visits.parquet",
+    "hits_columns": [
+      "ym:pv:watchID",
+      "ym:pv:URL",
+      "ym:pv:dateTime",
+      "version",
+      "url_category"
+    ],
+    "visits_columns": [
+      "ym:s:visitID",
+      "ym:s:date",
+      "ym:s:watchIDs",
+      "version",
+      "session_depth"
+    ]
+  }
+}

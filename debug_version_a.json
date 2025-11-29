@@ -1,0 +1,161 @@
+{
+  "hits_analysis": {
+    "total_hits": 200,
+    "url_category_analysis": [
+      {
+        "url_category": "bachelor",
+        "views": 71,
+        "percentage": 35.5
+      },
+      {
+        "url_category": "homepage",
+        "views": 48,
+        "percentage": 24.0
+      },
+      {
+        "url_category": "master",
+        "views": 17,
+        "percentage": 8.5
+      },
+      {
+        "url_category": "news",
+        "views": 12,
+        "percentage": 6.0
+      },
+      {
+        "url_category": "other",
+        "views": 50,
+        "percentage": 25.0
+      },
+      {
+        "url_category": "results",
+        "views": 2,
+        "percentage": 1.0
+      }
+    ],
+    "top_urls": [
+      {
+        "ym:pv:URL": "https://priem.mai.ru/",
+        "views": 23,
+        "percentage": 11.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/",
+        "views": 23,
+        "percentage": 11.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/application/",
+        "views": 22,
+        "percentage": 11.0
+      },
+      {
+        "ym:pv:URL": "https://zen.yandex.ru/media/id/5aded8b748c85ece27e530dd/bystree-vyshe-umnee-kak-v-mai-rabotaiut-nad-novym-sverhzvukovym-samoletom-62025b8a70837a6f9be13b38",
+        "views": 18,
+        "percentage": 9.0
+      },
+      {
+        "ym:pv:URL": "https://dzen.ru/a/Yz0lnD7VD0lHfzel",
+        "views": 8,
+        "percentage": 4.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/item/index.php?id=102926&referer=https:%2F%2Fwww.google.com%2F",
+        "views": 4,
+        "percentage": 2.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/master/programs/",
+        "views": 4,
+        "percentage": 2.0
+      },
+      {
+        "ym:pv:URL": "https://dzen.ru/a/Y3MxjrkIImguxC3x",
+        "views": 3,
+        "percentage": 1.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/special-purpose/#videos",
+        "views": 3,
+        "percentage": 1.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/news/item.php?id=162829",
+        "views": 3,
+        "percentage": 1.5
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/orders/programs/",
+        "views": 3,
+        "percentage": 1.5
+      },
+      {
+        "ym:pv:URL": "https://zen.yandex.ru/media/id/5aded8b748c85ece27e530dd/kineticheskii-nakopitel-energii-novyi-istochnik-avariinogo-pitaniia-61de743db43a5e5e9418a938",
+        "views": 3,
+        "percentage": 1.5
+      },
+      {
+        "ym:pv:URL": "goal://priem.mai.ru/B24_FORM_2_VIEW",
+        "views": 2,
+        "percentage": 1.0
+      },
+      {
+        "ym:pv:URL": "https://lk.mai.ru/",
+        "views": 2,
+        "percentage": 1.0
+      },
+      {
+        "ym:pv:URL": "https://priem.mai.ru/bachelor/programs/item/index.php?id=102898",
+        "views": 2,
+        "percentage": 1.0
+      }
+    ],
+    "total_unique_urls": 72,
+    "numeric_stats": {}
+  },
+  "visits_analysis": {
+    "total_visits": 200,
+    "session_metrics": {
+      "avg_session_depth": 1.0,
+      "median_session_depth": 1.0,
+      "std_session_depth": 0.0,
+      "max_session_depth": 1,
+      "min_session_depth": 1,
+      "single_page_sessions": 200,
+      "multi_page_sessions": 0,
+      "bounce_rate": 100.0,
+      "depth_distribution": {
+        "1": 200
+      },
+      "depth_percentiles": {
+        "q10": 1.0,
+        "q25": 1.0,
+        "q50": 1.0,
+        "q75": 1.0,
+        "q90": 1.0
+      }
+    }
+  },
+  "combined_metrics": {
+    "hits_per_visit": 1.0,
+    "total_data_points": 400
+  },
+  "data_sources": {
+    "hits_file": "data/v1_hits.parquet",
+    "visits_file": "data/v1_visits.parquet",
+    "hits_columns": [
+      "ym:pv:watchID",
+      "ym:pv:URL",
+      "ym:pv:dateTime",
+      "version",
+      "url_category"
+    ],
+    "visits_columns": [
+      "ym:s:visitID",
+      "ym:s:date",
+      "ym:s:watchIDs",
+      "version",
+      "session_depth"
+    ]
+  }
+}

@@ -9,9 +9,8 @@ from minimal_agents.runner import Runner
 from minimal_agents.run_config import RunConfig
 from util.adk_custom_model_provider import CustomModelProvider
 
-from mcp_ux_server import _load_parquet_summary_direct
+from mcp_ux_server import _load_combined_ux_data, _load_parquet_summary_direct
 
-# Загружаем переменные окружения
 load_dotenv()
 folder_id = os.environ["folder_id"]
 api_key = os.environ["api_key"]
@@ -24,118 +23,57 @@ client = AsyncOpenAI(
     project=folder_id
 )
 
-REL_CHANGE_THRESHOLD = 0.3
+REL_CHANGE_THRESHOLD = 40  # ОБЯЗАТЕЛЬНО БЕЗ ДЕСЯТИЧНОЙ ТОЧКИ ИНАЧЕ МЯСО
 Z_SCORE_THRESHOLD = 2.0
 
 PROMPT_TEMPLATE = """
-У тебя есть две JSON-сводки — VERSION_A и VERSION_B.
+Ты получаешь два набора данных (VERSION_A и VERSION_B) о поведении пользователей на сайте. 
 
-VERSION_A:
+ТВОЯ ЗАДАЧА: Найти ВСЕ метрики, которые изменились более чем на 40% между версиями.
+
+ОСОБОЕ ВНИМАНИЕ УДЕЛИ:
+- Изменения в популярности конкретных URL и категорий страниц
+- Изменения в глубине сессий и bounce rate
+- Изменения в распределении по типам контента
+
+ДАННЫЕ VERSION_A:
 {version_a}
 
-VERSION_B:
+ДАННЫЕ VERSION_B:
 {version_b}
 
-В сводках хранятся данные по UX 2-х версий сайтов: например количество кликов и проведённое время на каждой странице сайта и т.д. 
-После считывания 2-х сводок ты анализируешь разницу между ними: увеличение числа кликов, времени на странице и т.д. 
-Далее ты выделяешь сильно изменившееся метрики (изменения выходящие за какие-то нормальные границы). 
-На основе этих изменившихся метрик ты определяешь проблему из следующего списка:
+АНАЛИЗИРУЙ СЛЕДУЮЩЕЕ:
+- Количество просмотров по КОНКРЕТНЫМ URL (из top_urls)
+- Распределение по КАТЕГОРИЯМ URL (url_category_analysis)  
+- Статистики сессий (глубина, bounce rate)
+- Общие метрики (total_hits, total_visits)
 
-### Метрики для выявления проблем пользовательского опыта
+ДЛЯ КАЖДОЙ МЕТРИКИ РАССЧИТАЙ:
+1. Абсолютное изменение (версия_B - версия_A)
+2. Относительное изменение в % ((версия_B - версия_A) / версия_A * 100)
 
-#### 1. Проблема: Высокий отскок с ключевых страниц
+ЕСЛИ НАЙДЕШЬ ИЗМЕНЕНИЯ >40% - включи их в отчет.
+ЕСЛИ НЕТ - верни пустой список.
 
-Ключевые метрики:
-- Bounce Rate (Показатель отказов)
-  - *Расчет:* (Количество сессий с одной страницей / Все сессии на странице) × 100%
-  - *Интерпретация:* Высокий процент показывает, что пользователи уходят без взаимодействия
-
-- Exit Rate (Показатель выходов)
-  - *Расчет:* (Количество выходов со страницы / Все просмотры страницы) × 100%
-  - *Интерпретация:* Показывает, насколько часто страница является последней в сессии
-
-- Time on Page (Время на странице)
-  - *Расчет:* Среднее время всех пользователей на странице
-  - *Интерпретация:* Низкое значение (<15 сек) указывает на нерелевантность контента
-
-- Scroll Depth (Глубина скролла)
-  - *Расчет:* Процент пользователей, доскроливших до ключевых точек (25%, 50%, 75%, 100%)
-  - *Интерпретация:* Показывает, видят ли пользователи основной контент
-
-#### 2. Проблема: «Блуждание» по сайту/приложению
-
-Ключевые метрики:
-- Pages per Session (Страниц за сессию)
-  - *Расчет:* Общее количество просмотров страниц / Общее количество сессий
-  - *Интерпретация:* Высокое значение без конверсии = бесцельное блуждание
-
-- Navigation vs. Search Usage
-  - *Расчет:* (Сессии с использованием поиска / Все сессии) × 100%
-  - *Интерпретация:* Высокий процент = пользователи не могут найти нужное через навигацию
-
-- Goal Conversion Rate
-  - *Расчет:* (Сессии с конверсией / Все сессии) × 100%
-  - *Интерпретация:* Низкое значение при высоком Pages per Session подтверждает проблему
-
-#### 3. Проблема: Проблемы с навигацией
-
-Ключевые метрики:
-- Количество использований кнопки "Назад"
-  - *Расчет:* Отслеживание события "клик по кнопке Назад"
-  - *Интерпретация:* Частое использование = пользователи теряются
-
-- Время до первого клика
-  - *Расчет:* Среднее время от загрузки страницы до первого взаимодействия с навигацией
-  - *Интерпретация:* Долгий поиск = неинтуитивная навигация
-
-- Повторные переходы "Главная → Меню → Главная"
-  - *Расчет:* Анализ последовательности переходов в аналитике
-  - *Интерпретация:* Пользователи не могут найти нужный раздел
-
-#### 4. Проблема: Ошибки ввода данных в формах
-
-Ключевые метрики:
-- Form Abandonment Rate
-  - *Расчет:* (Незавершенные формы / Все начатые формы) × 100%
-  - *Интерпретация:* Высокий процент = проблемы с юзабилити формы
-
-- Field-Level Error Rate
-  - *Расчет:* (Ошибки в поле / Все попытки заполнения) × 100%
-  - *Интерпретация:* Показывает самые проблемные поля
-
-- Time to Complete Form
-  - *Расчет:* Среднее время заполнения и отправки формы
-  - *Интерпретация:* Высокое значение = форма слишком сложная
-
-- Количество фокусов на поле
-  - *Расчет:* Количество активаций одного поля
-  - *Интерпретация:* Много фокусов = пользователь сомневается в правильности ввода
-
-#### 5. Проблема: Критические точки отказа в воронках
-
-Ключевые метрики:
-- Funnel Drop-off Rate
-  - *Расчет:* (Пользователи, ушедшие на шаге N / Пользователи, дошедшие до шага N) × 100%
-  - *Интерпретация:* Показывает самые проблемные шаги воронки
-
-- Overall Conversion Rate
-  - *Расчет:* (Пользователи, завершившие воронку / Пользователи, начавшие воронку) × 100%
-  - *Интерпретация:* Общая эффективность всего процесса
-
-- Funnel Step Efficiency
-  - *Расчет:* (Пользователи на шаге N+1 / Пользователи на шаге N) × 100%
-  - *Интерпретация:* Эффективность перехода между конкретными шагами
-
-Далее ты выдаёшь список найденных проблем и метрики, относящиеся к каждой в json файле.
-В самом json файле такая структура:
-Имя страницы: 
-    -> Имя проблемы
-        -> Данные по относящимся к проблеме метрикам в файле 1
-        -> Аналогичные данные по второму файлу
-        -> Насколько стало лучше\хуже ввиде какого-то коэффициента
-
-Порог relative_change = {rel_thr}, z_threshold = {z_thr}.
-Генерируй строго JSON.
+Формат ОБЯЗАТЕЛЕН:
+{{
+  "анализ_результатов": {{
+    "общее_сообщение": "строка",
+    "всего_значимых_изменений": число,
+    "статус": "есть_значимые_изменения/нет_значимых_изменений"
+  }},
+  "значимые_изменения": [
+    {{
+      "метрика": "строка_с_понятным_названием", 
+      "версия_A": число,
+      "версия_B": число, 
+      "абсолютное_изменение": число,
+      "относительное_изменение_%": число,
+      "значимость": "высокая/средняя/низкая",
+      "интерпретация": "краткое_объяснение_что_это_может_означать"
+    }}
+  ]
+}}
 """
 
 agent = Agent(
@@ -146,13 +84,54 @@ agent = Agent(
 
 rc = RunConfig(model_provider=CustomModelProvider(model, client))
 
-
-async def run_analysis(file_a: str, file_b: str):
+async def run_analysis(
+    hits_file_a: str, 
+    visits_file_a: str, 
+    hits_file_b: str, 
+    visits_file_b: str
+):
     """
-    Основная функция анализа:
-    - Загружает parquet-файлы как JSON
+    Основная функция анализа с двумя файлами на версию:
+    - Загружает комбинированные данные hits + visits для обеих версий
     - Формирует промпт для LLM
     - Запускает агента
+    """
+    print(f"Загрузка данных...")
+    
+    json_a = _load_combined_ux_data(hits_file_a, visits_file_a)
+    json_b = _load_combined_ux_data(hits_file_b, visits_file_b)
+
+    with open("debug_version_a.json", "w", encoding="utf8") as f:
+        f.write(json_a)
+    with open("debug_version_b.json", "w", encoding="utf8") as f:
+        f.write(json_b)
+
+    data_a = json.loads(json_a)
+    data_b = json.loads(json_b)
+    
+    print("Проверка URL анализа:")
+    if 'url_category_analysis' in data_a['hits_analysis']:
+        print("Категории URL Version A:", data_a['hits_analysis']['url_category_analysis'])
+        print("Категории URL Version B:", data_b['hits_analysis']['url_category_analysis'])
+    
+    if 'top_urls' in data_a['hits_analysis']:
+        print("Топ URL Version A (первые 3):", data_a['hits_analysis']['top_urls'][:3])
+        print("Топ URL Version B (первые 3):", data_b['hits_analysis']['top_urls'][:3])
+
+    prompt = PROMPT_TEMPLATE.format(
+        version_a=json_a,
+        version_b=json_b,
+        rel_thr=REL_CHANGE_THRESHOLD,
+        z_thr=Z_SCORE_THRESHOLD
+    )
+
+    print("Запуск LLM анализа...")
+    result = await Runner.run(agent, input=prompt, run_config=rc)
+    return result.final_output
+
+async def run_analysis_simple(file_a: str, file_b: str):
+    """
+    Старая функция для обратной совместимости (один файл на версию)
     """
     json_a = _load_parquet_summary_direct(file_a)
     json_b = _load_parquet_summary_direct(file_b)
@@ -167,17 +146,35 @@ async def run_analysis(file_a: str, file_b: str):
     result = await Runner.run(agent, input=prompt, run_config=rc)
     return result.final_output
 
-
 if __name__ == "__main__":
-    a = "ux_version_A.parquet"
-    b = "ux_version_B.parquet"
-    out = asyncio.run(run_analysis(a, b))
+    hits_a = "data/v1_hits.parquet"
+    visits_a = "data/v1_visits.parquet"
+    hits_b = "data/v2_hits.parquet"
+    visits_b = "data/v2_visits.parquet"
+    
+    print("Анализ UX данных...")
+    
+    out = asyncio.run(run_analysis(hits_a, visits_a, hits_b, visits_b))
 
     try:
         parsed = json.loads(out)
-        with open("ux_report_llm.json", "w", encoding="utf8") as f:
+        with open("ux_report_llm_significant.json", "w", encoding="utf8") as f:
             json.dump(parsed, f, ensure_ascii=False, indent=2)
-        print("Saved ux_report_llm.json")
+        
+        # Анализ результата
+        changes = parsed.get("значимые_изменения", [])
+        if changes:
+            print(f"Найдено {len(changes)} значимых изменений (>40%)")
+            for change in changes[:3]:  # покажем первые 3
+                metric = change.get('метрика', 'N/A')
+                change_pct = change.get('относительное_изменение_%', 0)
+                print(f"   - {metric}: {change_pct:+.1f}%")
+        else:
+            print("   Значимых изменений не обнаружено (>40%)")
+            print("   Проверьте отладочные файлы debug_version_*.json")
+        
+        print("  Отчет сохранен в ux_report_llm_significant.json")
+                    
     except json.JSONDecodeError:
-        print("Invalid JSON from LLM:")
-        print(out)
+        print("  Ошибка: некорректный ответ от LLM")
+        print("Ответ:", out)
